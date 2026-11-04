@@ -1,0 +1,23 @@
+{
+  "sitemapIndex": "https://learn.microsoft.com/_sitemaps/sitemapindex.xml",
+  "sitemaps": "/_sitemaps/windows-server_en-us_\\d+\\.xml$",
+  "tocs": [
+    "https://learn.microsoft.com/en-us/windows-server/identity/toc.json",
+    "https://learn.microsoft.com/en-us/windows-server/security/toc.json",
+    "https://learn.microsoft.com/en-us/windows-server/networking/toc.json",
+    "https://learn.microsoft.com/en-us/windows-server/administration/toc.json",
+    "https://learn.microsoft.com/en-us/windows-server/storage/toc.json",
+    "https://learn.microsoft.com/en-us/windows-server/get-started/toc.json",
+    "https://learn.microsoft.com/en-us/windows-server/remote/toc.json",
+    "https://learn.microsoft.com/en-us/windows-server/failover-clustering/toc.json"
+  ],
+  "extraUrls": [],
+  "include": "^https://learn\\.microsoft\\.com/en-us/windows-server/",
+  "exclude": [],
+  "trackedPaths": "^WindowsServerDocs/",
+  "sourceRepos": [
+    "MicrosoftDocs/windowsserverdocs-pr"
+  ],
+  "concurrency": 4,
+  "priority": "(whats-new|release-notes|what-s-new|new-features|deprecat|retire|removed-features)"
+}
