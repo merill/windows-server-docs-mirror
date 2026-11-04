@@ -1,0 +1,80 @@
+---
+layout: Conceptual
+title: Performance Tuning Web Servers | Microsoft Learn
+canonicalUrl: https://learn.microsoft.com/en-us/windows-server/administration/performance-tuning/role/web-server/
+breadcrumb_path: /windows-server/breadcrumbs/toc.json
+uhfHeaderId: MSDocsHeader-WindowsServer
+feedback_system: Standard
+recommendations: true
+ms.service: windows-server
+ms.subservice: administration
+ms.update-cycle: 1095-days
+description: Performance tuning recommendations for Web Servers on Windows Server 16
+ms.topic: best-practice
+ms.author: roharwoo
+author: robinharwood
+ms.date: 2017-10-16T00:00:00.0000000Z
+locale: en-us
+document_id: a64e6dce-1a5a-77c3-8e8a-e4e0c6105786
+document_version_independent_id: 795b9cd1-4423-39cb-246e-7eabe9570898
+original_content_git_url: https://github.com/MicrosoftDocs/windowsserverdocs-pr/blob/live/WindowsServerDocs/administration/performance-tuning/role/web-server/index.md
+site_name: Docs
+depot_name: MSDN.WindowsServerDocs-pr
+page_type: conceptual
+toc_rel: ../../toc.json
+pdf_url_template: https://learn.microsoft.com/pdfstore/en-us/MSDN.WindowsServerDocs-pr/{branchName}{pdfName}
+feedback_product_url: ''
+feedback_help_link_type: ''
+feedback_help_link_url: ''
+asset_id: administration/performance-tuning/role/web-server/index
+moniker_range_name: 
+monikers: []
+item_type: Content
+source_path: WindowsServerDocs/administration/performance-tuning/role/web-server/index.md
+cmProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/fc3f72c2-fb6f-4cea-95ee-b444e52254ee
+spProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/f12cf087-582d-48ac-a085-0c19adf1e391
+platformId: da69fe28-4675-8651-6c47-f9a345c2d00c
+---
+
+# Performance Tuning Web Servers | Microsoft Learn
+
+This topic describes performance tuning methods and recommendations for Windows Server 2022 web servers.
+
+## Selecting the proper hardware for performance
+
+It is important to select the proper hardware to satisfy the expected web load, considering average load, peak load, capacity, growth plans, and response times. Hardware bottlenecks limit the effectiveness of software tuning.
+
+[Performance Tuning for Server Hardware](../../hardware/) provides recommendations for hardware to avoid the following performance constraints:
+
+- Slow CPUs offer limited processing power for CPU intensive workloads such as ASP, ASP.NET, and TLS scenarios.
+- A small L2 or L3/LLC processor cache might adversely affect performance.
+- A limited amount of memory affects the number of sites that can be hosted, how many dynamic content scripts (such as ASP.NET) can be stored, and the number of application pools or worker processes.
+- Networking becomes a bottleneck because of an inefficient network adapter.
+- The file system becomes a bottleneck because of an inefficient disk subsystem or storage adapter.
+
+## Operating system best practices
+
+If possible, start with a clean installation of the operating system. Upgrading the software can leave outdated, unwanted, or suboptimal registry settings and previously installed services and applications that consume resources if they are started automatically. If another operating system is installed and you must keep it, you should install the new operating system on a different partition. Otherwise, the new installation overwrites the settings under %Program Files%\Common Files.
+
+To reduce disk access interference, place the system page file, operating system, web data, ASP template cache, and the Internet Information Services (IIS) log on separate physical disks, if possible.
+
+To reduce contention for system resources, install Microsoft SQL Server and IIS on different servers, if possible.
+
+Avoid installing non-essential services and applications. In some cases, it might be worthwhile to disable services that are not required on a system.
+
+## NTFS file system settings
+
+The system-global switch **NtfsDisableLastAccessUpdate** (REG\_DWORD) 1 is located under **HKLM\System\CurrentControlSet\Control\FileSystem** and is set by default to 1. This switch reduces disk I/O load and latencies by disabling date and time stamp updating for the last file or directory access. Clean installations of Windows Server 2022, Windows Server 2019, Windows Server 2016, Windows Server 2012 R2, Windows Server 2012, Windows Server 2008 R2, and Windows Server 2008 enable this setting by default, and you do not need to adjust it. Earlier versions of Windows did not set this key. If your server is running an earlier version of Windows, or it was upgraded to Windows Server 2022, Windows Server 2019, Windows Server 2016, Windows Server 2012 R2, Windows Server 2012, Windows Server 2008 R2, or Windows Server 2008, you should enable this setting.
+
+Disabling the updates is effective when you are using large data sets (or many hosts) that contain thousands of directories. We recommend that you use IIS logging instead if you maintain this information only for Web administration.
+
+Warning
+
+Some applications, such as incremental backup utilities, rely on this update information, and they do not function correctly without it.
+
+## Additional References
+
+- [IIS 10.0 performance tuning](tuning-iis-10)
+- [HTTP 1.1/2 tuning](http-performance)

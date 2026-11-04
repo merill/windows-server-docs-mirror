@@ -1,0 +1,55 @@
+---
+layout: Conceptual
+title: autoconv | Microsoft Learn
+canonicalUrl: https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/autoconv
+breadcrumb_path: /windows-server/breadcrumbs/toc.json
+uhfHeaderId: MSDocsHeader-WindowsServer
+feedback_system: Standard
+recommendations: true
+ms.service: windows-server
+ms.subservice: windows-commands
+ms.update-cycle: 1095-days
+description: Reference article for the autoconv command, which converts file allocation table (Fat) and Fat32 volumes to the NTFS file system.
+ms.topic: reference
+ms.author: roharwoo
+author: robinharwood
+ms.date: 2017-10-16T00:00:00.0000000Z
+locale: en-us
+document_id: 3749b2f8-609d-733b-0dc8-7260bba6679b
+document_version_independent_id: 5600c4fd-c73d-d608-1984-d7cdb263949f
+original_content_git_url: https://github.com/MicrosoftDocs/windowsserverdocs-pr/blob/live/WindowsServerDocs/administration/windows-commands/autoconv.md
+site_name: Docs
+depot_name: MSDN.WindowsServerDocs-pr
+page_type: conceptual
+toc_rel: toc.json
+pdf_url_template: https://learn.microsoft.com/pdfstore/en-us/MSDN.WindowsServerDocs-pr/{branchName}{pdfName}
+feedback_product_url: ''
+feedback_help_link_type: ''
+feedback_help_link_url: ''
+asset_id: administration/windows-commands/autoconv
+moniker_range_name: 
+monikers: []
+item_type: Content
+source_path: WindowsServerDocs/administration/windows-commands/autoconv.md
+cmProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/fc3f72c2-fb6f-4cea-95ee-b444e52254ee
+- https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
+spProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/f12cf087-582d-48ac-a085-0c19adf1e391
+- https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
+platformId: 96cb9673-6369-f6f3-4897-79b62cf53626
+---
+
+# autoconv | Microsoft Learn
+
+Converts file allocation table (Fat) and Fat32 volumes to the NTFS file system, leaving existing files and directories intact at startup after **autochk** runs. volumes converted to the NTFS file system cannot be converted back to Fat or Fat32.
+
+Important
+
+You can't run **autoconv** from the command-line. This can only run at startup, if set through **convert.exe**.
+
+## Related links
+
+- [Command-Line Syntax Key](command-line-syntax-key)
+- [autochk command](autochk)
+- [convert command](convert)

@@ -1,0 +1,108 @@
+---
+layout: Conceptual
+title: replace | Microsoft Learn
+canonicalUrl: https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/replace
+breadcrumb_path: /windows-server/breadcrumbs/toc.json
+uhfHeaderId: MSDocsHeader-WindowsServer
+feedback_system: Standard
+recommendations: true
+ms.service: windows-server
+ms.subservice: windows-commands
+ms.update-cycle: 1095-days
+description: Reference article for the replace command, which can replace existing or add new files to a directory.
+ms.topic: reference
+ms.author: roharwoo
+author: robinharwood
+ms.date: 2018-07-11T00:00:00.0000000Z
+locale: en-us
+document_id: 3735a53e-194b-4aa9-622d-2c5b8c41ad23
+document_version_independent_id: 237a0a98-1aa1-ab5b-1a5b-39566e004e2d
+original_content_git_url: https://github.com/MicrosoftDocs/windowsserverdocs-pr/blob/live/WindowsServerDocs/administration/windows-commands/replace.md
+site_name: Docs
+depot_name: MSDN.WindowsServerDocs-pr
+page_type: conceptual
+toc_rel: toc.json
+pdf_url_template: https://learn.microsoft.com/pdfstore/en-us/MSDN.WindowsServerDocs-pr/{branchName}{pdfName}
+feedback_product_url: ''
+feedback_help_link_type: ''
+feedback_help_link_url: ''
+asset_id: administration/windows-commands/replace
+moniker_range_name: 
+monikers: []
+item_type: Content
+source_path: WindowsServerDocs/administration/windows-commands/replace.md
+cmProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/12ed19f9-ebdf-4c8a-8bcd-7a681836774d
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/fc3f72c2-fb6f-4cea-95ee-b444e52254ee
+- https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
+spProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/3a764584-4f97-452b-8f1d-36f19b12f6ae
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/f12cf087-582d-48ac-a085-0c19adf1e391
+- https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
+platformId: 8eab5134-0b5a-7a71-54f3-6e82de3533d9
+---
+
+# replace | Microsoft Learn
+
+Replace existing files in a directory. If used with the **/a** option, this command adds new files to a directory instead of replacing existing files.
+
+## Syntax
+
+```
+replace [<drive1>:][<path1>]<filename> [<drive2>:][<path2>] [/a] [/p] [/r] [/w]
+replace [<drive1>:][<path1>]<filename> [<drive2>:][<path2>] [/p] [/r] [/s] [/w] [/u]
+```
+
+### Parameters
+
+| Parameter | Description |
+| --- | --- |
+| `[<drive1>:][<path1>]<filename>` | Specifies the location and name of the source file or set of files. The *filename* option is required, and can include wildcard characters (**\*** and **?**). |
+| `[<drive2>:][<path2>]` | Specifies the location of the destination file. You can't specify a file name for files you replace. If you don't specify a drive or path, this command uses the current drive and directory as the destination. |
+| /a | Adds new files to the destination directory instead of replacing existing files. You can't use this command-line option with the **/s** or **/u** command-line option. |
+| /p | Prompts you for confirmation before replacing a destination file or adding a source file. |
+| /r | Replaces Read-only and unprotected files. If you attempt to replace a Read-only file, but you don't specify **/r**, an error results and stops the replacement operation. |
+| /w | Waits for you to insert a disk before the search for source files begins. If you don't specify **/w**, this command begins replacing or adding files immediately after you press ENTER. |
+| /s | Searches all subdirectories in the destination directory and replaces matching files. You can't use **/s** with the **/a** command-line option. The command doesn't search subdirectories that are specified in *Path1*. |
+| /u | Replaces only those files on the destination directory that are older than those in the source directory. You can't use **/u** with the **/a** command-line option. |
+| /? | Displays help at the command prompt. |
+
+#### Remarks
+
+- As this command adds or replaces files, the file names appear on the screen. After this command is done, a summary line is displayed in one of the following formats:
+
+    ```
+    nnn files added
+    nnn files replaced
+    no file added
+    no file replaced
+    ```
+- If you're using floppy disks and you need to switch disks while running this command, you can specify the **/w** command-line option so that this command waits for you to switch the disks.
+- You can't use this command to update hidden files or system files.
+- The following table shows each exit code and a brief description of its meaning:
+
+    | Exit code | Description |
+    | --- | --- |
+    | 0 | This command successfully replaced or added the files. |
+    | 1 | This command encountered an incorrect version of MS-DOS. |
+    | 2 | This command couldn't find the source files. |
+    | 3 | This command couldn't find the source or destination path. |
+    | 5 | The user doesn't have access to the files that you want to replace. |
+    | 8 | There is insufficient system memory to carry out the command. |
+    | 11 | The user used the wrong syntax on the command line. |
+
+Note
+
+You can use the ERRORLEVEL parameter on the **if** command line in a batch program to process exit codes that are returned by this command.
+
+## Examples
+
+To update all the versions of a file named *Phones.cli* (which appear in multiple directories on drive C:), with the latest version of the *Phones.cli* file from a floppy disk in drive A:, type:
+
+```
+replace a:\phones.cli c:\ /s
+```
+
+## Related links
+
+- [Command-Line Syntax Key](command-line-syntax-key)

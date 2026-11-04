@@ -1,0 +1,442 @@
+---
+layout: FAQ
+title: Active Directory Federation Services (AD FS) FAQ | Microsoft Learn
+canonicalUrl: https://learn.microsoft.com/en-us/windows-server/identity/ad-fs/overview/ad-fs-faq
+summary: >
+  <p>This article provides answers to frequently asked questions about Active Directory Federation Services (AD FS). It's divided into sections that are based on the type of question.</p>
+breadcrumb_path: /windows-server/breadcrumbs/toc.json
+uhfHeaderId: MSDocsHeader-WindowsServer
+feedback_system: Standard
+recommendations: true
+ms.service: windows-server
+ms.subservice: ad-fs
+ms.update-cycle: 1095-days
+ms.author: billmath
+author: robinharwood
+description: This article provides answers to frequently asked questions about Active Directory Federation Services (AD FS).
+ms.date: 2020-11-02T00:00:00.0000000Z
+ms.topic: faq
+ms.custom: sfi-ropc-nochange
+locale: en-us
+document_id: d7958465-7224-0c4b-8771-eba606511922
+document_version_independent_id: ff44e422-e4b1-134a-47bd-88d9abc843e3
+original_content_git_url: https://github.com/MicrosoftDocs/windowsserverdocs-pr/blob/live/WindowsServerDocs/identity/ad-fs/overview/AD-FS-FAQ.yml
+site_name: Docs
+depot_name: MSDN.WindowsServerDocs-pr
+page_type: faq
+toc_rel: ../../toc.json
+feedback_product_url: ''
+feedback_help_link_type: ''
+feedback_help_link_url: ''
+asset_id: identity/ad-fs/overview/ad-fs-faq
+moniker_range_name: 
+monikers: []
+item_type: Content
+source_path: WindowsServerDocs/identity/ad-fs/overview/AD-FS-FAQ.yml
+cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/b1cfdec6-b0c3-4209-818c-736879856e0e
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/37da4cc9-0cfc-42a9-ba5e-805706b01ef8
+spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/2d0723c1-cf38-4c30-ab3d-5df787b33270
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/3661fb96-d414-4a4e-b7ad-9370637790dd
+platformId: 24ded943-4558-dbb4-c057-93b4aaa89bfd
+---
+
+# Active Directory Federation Services (AD FS) FAQ | Microsoft Learn
+
+This article provides answers to frequently asked questions about Active Directory Federation Services (AD FS). It's divided into sections that are based on the type of question.
+
+## Deployment
+
+### How can I upgrade/migrate from previous versions of AD FS?
+
+You can upgrade/migrate AD FS by completing the steps in one of the following linked articles:
+
+- Windows Server 2012 R2 AD FS to Windows Server 2016 AD FS or later. (The process is the same if you're upgrading from Windows Server 2016 AD FS to Windows Server 2019 AD FS.)
+    - [Upgrading to AD FS in Windows Server 2016 by using a WID database](../deployment/upgrading-to-ad-fs-in-windows-server)
+    - [Upgrading to AD FS in Windows Server 2016 by using a SQL database](../deployment/upgrading-to-ad-fs-in-windows-server-sql)
+- Windows Server 2012 AD FS to Windows Server 2012 R2 AD FS:
+    - [Migrate to AD FS on Windows Server 2012 R2](/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/dn486815%28v=ws.11%29)
+- AD FS 2.0 to Windows Server 2012 AD FS:
+    - [Migrate to AD FS on Windows Server 2012](../deployment/migrate-ad-fs-role-services-to-windows-server-2012)
+- AD FS 1.*x*to AD FS 2.0:
+    - [Upgrade from AD FS 1.*x* to AD FS 2.0](/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/ff678035%28v=ws.10%29)
+
+If you need to upgrade from AD FS 2.0 or 2.1 (Windows Server 2008 R2 or Windows Server 2012), use the in-box scripts located in C:\Windows\ADFS.
+
+### Why does AD FS installation require a server restart?
+
+HTTP/2 support was added in Windows Server 2016, but HTTP/2 can't be used for client certificate authentication. Many AD FS scenarios use client certificate authentication. And many clients don't support retrying requests by using HTTP/1.1. So AD FS farm configuration reconfigures the local server's HTTP settings to HTTP/1.1. This reconfiguration requires a server restart.
+
+### Can I use Windows Server 2016 Web Application Proxy servers to publish the AD FS farm to the internet without upgrading the back-end AD FS farm?
+
+This configuration is supported, but no new AD FS 2016 features would be supported in it. This configuration is meant to be temporary during the migration from AD FS 2012 R2 to AD FS 2016. It shouldn't be used for long periods of time.
+
+### Can I deploy AD FS for Office 365 without publishing a proxy to Office 365?
+
+Yes, but as a side effect:
+
+- You'll need to manually manage updates of token signing certificates because Microsoft Entra ID won't be able to access the federation metadata. For more information on manually updating token signing certificates, see [Renew federation certificates for Office 365 and Microsoft Entra ID](/en-us/azure/active-directory/connect/active-directory-aadconnect-o365-certs).
+- You won't be able to use legacy auth flows (for example, the ExO proxy auth flow).
+
+### What are load-balancing requirements for AD FS and Web Application Proxy servers?
+
+AD FS is a stateless system, so load balancing is fairly simple for sign-ins. Here are some key recommendations for load-balancing systems:
+
+- Load balancers shouldn't be configured with IP affinity. IP affinity might put undue load on a subset of your servers in certain Exchange Online scenarios.
+- Load balancers must not terminate the HTTPS connections and start a new connection to the AD FS server.
+- Load balancers should ensure that the connecting IP address should be translated as the source IP in the HTTP packet when it's being sent to AD FS. If a load balancer can't send the source IP in the HTTP packet, the load balancer must add the IP address to the X-Forwarded-For header. This step is required for the correct handling of certain IP-related features (like Banned IP and Extranet Smart Lockout). If this configuration isn't implemented correctly, security could be reduced.
+- Load balancers should support SNI. If they don't, be sure AD FS is configured to create HTTPS bindings to handle clients that don't support SNI.
+- Load balancers should use the AD FS HTTP health probe endpoint to detect whether the AD FS or Web Application Proxy servers are running. It should exclude them if 200 OK isn't returned.
+
+### What multiforest configurations does AD FS support?
+
+AD FS supports multiple multiforest configurations. It relies on the underlying AD DS trust network to authenticate users across multiple trusted realms. We strongly recommend two-way forest trusts because they're easier to set up, which helps ensure the trust system works correctly.
+
+Additionally:
+
+- If you have a one-way forest trust, like a perimeter network (also known as DMZ) forest that contains partner identities, we recommend that you deploy AD FS in the corporate forest. Treat the perimeter network forest as another local claims provider trust connected via LDAP. In this case, Windows Integrated Authentication won't work for the perimeter network forest users. They'll need to use password authentication because it's the only supported mechanism for LDAP.
+
+    If you can't use this option, you need to set up another AD FS server in the perimeter network forest. Add it as a claims provider trust in the AD FS server in the corporate forest. Users will need to do Home Realm Discovery, but both Windows Integrated Authentication and password authentication will work. Make appropriate changes in the issuance rules in AD FS in the perimeter network forest because AD FS in the corporate forest won't be able to get more information about users from the perimeter network forest.
+- Domain-level trusts are supported and can work. But we strongly recommend that you move to a forest-level trust model. You'd also need to ensure UPN routing and NetBIOS name resolution work correctly.
+
+Note
+
+If you use elective authentication with a two-way trust configuration, be sure the caller user is granted the Allowed to Authenticate permission on the target service account.
+
+### Does AD FS Extranet Smart Lockout support IPv6?
+
+Yes, IPv6 addresses are considered for familiar and unknown locations.
+
+## Design
+
+### What third-party multifactor authentication providers are available for AD FS?
+
+AD FS provides an extensible mechanism for third-party multifactor authentication providers to integrate. There's no set certification program for this. It's assumed that the vendor has performed the necessary validations before release.
+
+The list of vendors that have notified Microsoft is available here: [Multifactor authentication providers for AD FS](../operations/configure-additional-authentication-methods-for-ad-fs). There might be providers available that we don't know about. We'll update the list as we discover new ones.
+
+### Are third-party proxies supported with AD FS?
+
+Yes, third-party proxies can be placed in front of AD FS, but any third-party proxy must support the [MS-ADFSPIP protocol](/en-us/openspecs/windows_protocols/ms-adfspip/76deccb1-1429-4c80-8349-d38e61da5cbb) to be used in place of the Web Application Proxy.
+
+We're currently aware of the following third-party providers. There might be providers available that we don't know about. We'll update this list as we discover new ones.
+
+- [F5 Access Policy Manager](https://support.f5.com/kb/en-us/products/big-ip_apm/manuals/product/apm-third-party-integration-13-1-0/12.html#guid-1ee8fbb3-1b33-4982-8bb3-05ae6868d9ee)
+- [Citrix Application Delivery Controller (ADC)](https://docs.citrix.com/en-us/citrix-adc/current-release/aaa-tm/adfs-proxy-wsfed.html)
+
+### Where's the capacity-planning sizing spreadsheet for AD FS 2016?
+
+You can [download the AD FS 2016 version of the spreadsheet](https://adfsdocs.blob.core.windows.net/adfs/ADFSCapacity2016.xlsx). You can also use this spreadsheet for AD FS in Windows Server 2012 R2.
+
+### How can I ensure my AD FS and Web Application Proxy servers support Apple's ATP requirements?
+
+Apple has released a set of requirements called App Transport Security (ATS) that might affect calls from iOS apps that authenticate to AD FS. You can ensure your AD FS and Web Application Proxy servers comply by making sure they support the [requirements for connecting by using ATS](https://developer.apple.com/library/prerelease/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW57). In particular, you should verify that:
+
+- Your AD FS and Web Application Proxy servers support TLS 1.2.
+- The TLS connection's negotiated cipher suite will support perfect forward secrecy.
+
+For information about enabling and disabling SSL 2.0 and 3.0 and TLS 1.0, 1.1, and 1.2, see [Manage SSL Protocols in AD FS](../operations/manage-ssl-protocols-in-ad-fs).
+
+To ensure your AD FS and Web Application Proxy servers negotiate only TLS cipher suites that support ATP, you can disable all cipher suites that aren't in the [list of ATP-compliant cipher suites](https://developer.apple.com/library/prerelease/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW57). To disable them, use the [Windows TLS PowerShell cmdlets](/en-us/powershell/module/tls/).
+
+## Developer
+
+### When AD FS generates an id\_token for a user authenticated against Active Directory, how is the "sub" claim generated in the id\_token?
+
+The value of the "sub" claim is the hash of the client ID and the anchor claim value.
+
+### What are the lifetimes of the refresh token and the access token when the user logs in via a remote claims provider trust over WS-Fed/SAML-P?
+
+The lifetime of the refresh token will be the lifetime of the token that AD FS got from the remote claims provider trust. The lifetime of the access token will be the token lifetime of the relying party for which the access token is being issued.
+
+### I need to return profile and email scopes in addition to the openid scope. Can I obtain more information by using scopes? How to do it in AD FS?
+
+You can use a customized id\_token to add relevant information in the id\_token itself. For more information, see [Customize claims to be emitted in id_token](../development/custom-id-tokens-in-ad-fs).
+
+### How do I issue JSON blobs in JWT tokens?
+
+A special ValueType (http://www.w3.org/2001/XMLSchema#json) and escape character (\x22) were added for this scenario in AD FS 2016. Use the following samples for the issuance rule and for the final output from the access token.
+
+Sample issuance rule:
+
+```
+=> issue(Type = "array_in_json", ValueType = "http://www.w3.org/2001/XMLSchema#json", Value = "{\x22Items\x22:[{\x22Name\x22:\x22Apple\x22,\x22Price\x22:12.3},{\x22Name\x22:\x22Grape\x22,\x22Price\x22:3.21}],\x22Date\x22:\x2221/11/2010\x22}");
+```
+
+Claim issued in access token:
+
+```
+"array_in_json":{"Items":[{"Name":"Apple","Price":12.3},{"Name":"Grape","Price":3.21}],"Date":"21/11/2010"}
+```
+
+### Can I pass a resource value as part of the scope value, in the same way that requests are made against Microsoft Entra ID?
+
+With AD FS on Windows Server 2019, you can now pass the resource value embedded in the scope parameter. The scope parameter can be organized as a space-separated list where each entry is structured as resource/scope.
+
+### Does AD FS support the PKCE extension?
+
+AD FS in Windows Server 2019 supports Proof Key for Code Exchange (PKCE) for the OAuth Authorization Code Grant flow.
+
+### What permitted scopes are supported by AD FS?
+
+Supported:
+
+- aza. If you're using [OAuth 2.0 Protocol Extensions for Broker Clients](/en-us/openspecs/windows_protocols/ms-oapxbc/2f7d8875-0383-4058-956d-2fb216b44706) and the scope parameter contains the scope aza, the server issues a new primary refresh token and sets it in the refresh\_token field of the response. It also sets the refresh\_token\_expires\_in field to the lifetime of the new primary refresh token, if one is enforced.
+- openid. Allows an application to request the use of the OpenID Connect authorization protocol.
+- logon\_cert. Allows an application to request logon certificates, which can be used to interactively sign in authenticated users. The AD FS server omits the access\_token parameter from the response and instead provides a Base64-encoded CMS certificate chain or a CMC full PKI response. For more information, see [Processing details](/en-us/openspecs/windows_protocols/ms-oapx/32ce8878-7d33-4c02-818b-6c9164cc731e).
+- user\_impersonation. Required if you want to request an on-behalf-of access token from AD FS. For more information on how to use this scope, see [Build a multi-tiered application using On-Behalf-Of (OBO) using OAuth with AD FS 2016](../development/ad-fs-on-behalf-of-authentication-in-windows-server).
+
+Not supported:
+
+- vpn\_cert. Allows an application to request VPN certificates, which can be used to establish VPN connections by using EAP-TLS authentication. This scope is no longer supported.
+- email. Allows an application to request an email claim for the signed-in user. This scope is no longer supported.
+- profile. Allows an application to request profile-related claims for the signed-in user. This scope is no longer supported.
+
+## Operations
+
+### How do I replace the SSL certificate for AD FS?
+
+The AD FS SSL certificate isn't the same as the AD FS Service Communications Certificate in the AD FS Management snap-in. To change the AD FS SSL certificate, you need to use PowerShell. Follow the guidance in [Managing SSL certificates in AD FS and WAP 2016](../operations/manage-ssl-certificates-ad-fs-wap).
+
+### How can I enable or disable TLS/SSL settings for AD FS?
+
+For information about disabling and enabling SSL protocols and cipher suites, see [Manage SSL protocols in AD FS](../operations/manage-ssl-protocols-in-ad-fs).
+
+### Does the proxy SSL certificate need to be the same as the AD FS SSL certificate?
+
+- If the proxy is used to proxy AD FS requests that use Windows Integrated Authentication, the proxy SSL certificate must use the same key as the federation server SSL certificate.
+- If the AD FS **ExtendedProtectionTokenCheck** property is enabled (the default setting in AD FS), the proxy SSL certificate must use the same key as the federation server SSL certificate.
+- Otherwise, the proxy SSL certificate can have a different key from the AD FS SSL certificate. It must meet the same [requirements](ad-fs-requirements).
+
+### Why do I see only a password sign-in on AD FS and not the other authentication methods that I've configured?
+
+AD FS shows only one authentication method on the sign-in screen when an application explicitly requires a specific authentication URI that maps to a configured and enabled authentication method. The method is conveyed in the **wauth** parameter in WS-Federation requests. It's conveyed in the **RequestedAuthnCtxRef** parameter in SAML protocol requests. Only the requested authentication method is displayed. (For example, password sign-in.)
+
+When you use AD FS with Microsoft Entra ID, it's common for applications to send the **prompt=login** parameter to Microsoft Entra ID. Microsoft Entra ID by default translates this parameter to requesting a fresh password-based sign-in to AD FS. This scenario is the most common reason you might see a password sign-in on AD FS in your network or not see an option to sign in with your certificate. You can easily resolve this problem by making a change to the federated domain settings in Microsoft Entra ID.
+
+For more information, see [Active Directory Federation Services prompt=login parameter support](../operations/ad-fs-prompt-login).
+
+### How can I change the AD FS service account?
+
+To change the AD FS service account, use the AD FS Toolbox Service Account PowerShell module. For instructions, see [Change AD FS Service Account](https://github.com/Microsoft/adfsToolbox/tree/master/serviceAccountModule).
+
+### How can I configure browsers to use Windows Integrated Authentication (WIA) with AD FS?
+
+See [Configure browsers to use Windows Integrated Authentication (WIA) with AD FS](../operations/configure-ad-fs-browser-wia).
+
+### Can I turn off BrowserSsoEnabled?
+
+If you don't have access control policies based on the device on AD FS or Windows Hello for Business certificate enrollment via AD FS, you can turn off **BrowserSsoEnabled**. **BrowserSsoEnabled** allows AD FS to collect a Primary Refresh Token (PRT) from the client that contains device information. Without that token, device authentication of AD FS won't work on Windows 10 devices.
+
+### How long are AD FS tokens valid?
+
+Admins often wonder how long users get single sign-on (SSO) without having to enter new credentials, and how admins can control that behavior. That behavior, and the configuration settings that control it, are described in [AD FS single sign-on settings](../operations/ad-fs-single-sign-on-settings).
+
+The default lifetimes of the various cookies and tokens are listed here (together with the parameters that govern the lifetimes):
+
+**Registered devices**
+
+- PRT and SSO cookies: 90 days maximum, governed by **PSSOLifeTimeMins**. (If the device is used at least every 14 days. This time window is controlled by **DeviceUsageWindow**.)
+- Refresh token: Calculated based on the preceding parameters to provide consistent behavior.
+- access\_token: One hour by default, based on the relying party.
+- id\_token: Same as access\_token.
+
+**Unregistered devices**
+
+- SSO cookies: Eight hours by default, governed by **SSOLifetimeMins**. When Keep me signed in (KMSI) is enabled, the default is 24 hours. This default is configurable via **KMSILifetimeMins**.
+- Refresh token: Eight hours by default. 24 hours if KMSI is enabled.
+- access\_token: One hour by default, based on the relying party.
+- id\_token: Same as access\_token.
+
+### Does AD FS support implicit flows for confidential client?
+
+AD FS doesn't support implicit flows for confidential client. Client authentication is enabled only for token endpoint, and AD FS won't issue an access token without client authentication. If confidential client needs an access token and also requires user authentication, it will need to use authorization code flow.
+
+### Does AD FS support HTTP Strict Transport Security (HSTS)?
+
+HSTS is a web security policy mechanism. It helps mitigate protocol downgrade attacks and cookie hijacking for services that have both HTTP and HTTPS endpoints. It allows web servers to declare that web browsers (or other complying user agents) should interact with them only by using HTTPS and never via the HTTP protocol.
+
+All AD FS endpoints for web authentication traffic are opened exclusively over HTTPS. So AD FS mitigates the threats that HSTS policy mechanism creates. (By design, there's no downgrade to HTTP because there are no listeners in HTTP.) AD FS also prevents cookies from being sent to another server that has HTTP protocol endpoints by marking all cookies with the secure flag.
+
+So you don't need HSTS on an AD FS server because HSTS can't be downgraded. AD FS servers meet compliance requirements because they can't use HTTP and because cookies are marked secure.
+
+Finally, AD FS 2016 (with the most up-to-date patches) and AD FS 2019 support emitting the HSTS header. To configure this behavior, see [Customize HTTP security response headers with AD FS](../operations/customize-http-security-headers-ad-fs).
+
+### X-MS-Forwarded-Client-IP doesn't contain the IP of the client. It contains the IP of the firewall in front of the proxy. Where can I get the IP of the client?
+
+We don't recommend that you do SSL termination before the Web Application Proxy server. If it is done in front of the Web Application Proxy server, the X-MS-Forwarded-Client-IP will contain the IP of the network device in front of the Web Application Proxy server. Here's a brief description of the various IP-related claims supported by AD FS:
+
+- X-MS-Client-IP. Network IP of the device connected to the STS. For extranet requests, this claim always contains the IP of the Web Application Proxy server.
+- X-MS-Forwarded-Client-IP. Multivalued claim that contains any values forwarded to AD FS by Exchange Online. It also contains the IP address of the device connected to the Web Application Proxy server.
+- Userip. For extranet requests, this claim contains the value of X-MS-Forwarded-Client-IP. For intranet requests, this claim contains the same value as X-MS-Client-IP.
+
+AD FS 2016 (with the most up-to-date patches) and later versions also support capturing the X-Forwarded-For header. Any load balancer or network device that doesn't forward at layer 3 (IP is preserved) should add the incoming client IP to the industry-standard X-Forwarded-For header.
+
+### I'm trying to get more claims on the UserInfo endpoint, but it's only returning subject. How can I get more claims?
+
+The AD FS UserInfo endpoint always returns the subject claim as specified in the OpenID standards. AD FS doesn't support additional claims requested via the UserInfo endpoint. If you need more claims in an ID token, see [Custom ID tokens in AD FS](../development/custom-id-tokens-in-ad-fs).
+
+### Why am I seeing a warning for failure to add the AD FS service account to the Enterprise Key Admins group?
+
+This group is created only when a Windows Server 2016 domain controller with the FSMO PDC role exists in the domain. To resolve the error, you can create the group manually. Take these steps to add the required permissions after you add the service account as a member of the group:
+
+1. Open **Active Directory Users and Computers**.
+2. Right-click your domain name in the left pane and then select **Properties**.
+3. Select **Security**. (If the **Security** tab is missing, turn on **Advanced Features** on the **View** menu.)
+4. Select **Advanced**, **Add**, and then **Select a principal**.
+5. The **Select User, Computer, Service Account, or Group** dialog appears. In the **Enter the object name to select** box, enter **Key Admin Group**. Select **OK**.
+6. In the **Applies to** box, select **Descendant User objects**.
+7. Scroll to the bottom of the page and select **Clear all**.
+8. In the **Properties** section, select **Read msDS-KeyCredentialLink** and **Write msDS-KeyCredentialLink**.
+
+### Why does modern authentication from Android devices fail if the server doesn't send all the intermediate certificates in the chain with the SSL cert?
+
+For apps that use the Android ADAL library, authentication to Microsoft Entra ID might fail for federated users. The app will get an **AuthenticationException** when it tries to show the sign-in page. In the Chrome browser, the AD FS sign-in page might be described as unsafe.
+
+For all versions and all devices, Android doesn't support downloading additional certificates from the **authorityInformationAccess** field of the certificate. This limitation applies to the Chrome browser as well. Any server authentication certificate that's missing intermediate certificates will cause this error if the entire certificate chain isn't passed from AD FS.
+
+You can solve this problem by configuring the AD FS and Web Application Proxy servers to send the necessary intermediate certificates along with the SSL certificate.
+
+When you export the SSL certificate from one computer to be imported to the computer's personal store of the AD FS and Web Application Proxy servers, be sure to export the private key and select **Personal Information Exchange - PKCS #12**.
+
+Also, be sure to select **Include all certificates in the certificate path if possible** and **Export all extended properties**.
+
+Run certlm.msc on the Windows servers and import \*.pfx into the computer's personal certificate store. Doing so will cause the server to pass the entire certificate chain to the ADAL library.
+
+Note
+
+The certificate store of network load balancers should also be updated to include the entire certificate chain, if present.
+
+### Does AD FS support HEAD requests?
+
+AD FS doesn't support HEAD requests. Applications shouldn't use HEAD requests against AD FS endpoints. Using these requests might cause HTTP error responses that are unexpected or delayed. You might also see unexpected error events in the AD FS event log.
+
+### Why don't I see a refresh token when I sign in with a remote IdP?
+
+A refresh token isn't issued if the token issued by IdP has a validity of less than one hour. To ensure a refresh token is issued, increase the validity of the token issued by the IdP to more than one hour.
+
+### Is there any way to change the RP token encryption algorithm?
+
+The RP token encryption is set to AES256. You can't change it to any other value.
+
+### On a mixed-mode farm, I get an error when I try to set the new SSL certificate by using Set-AdfsSslCertificate -Thumbprint. How can I update the SSL certificate in a mixed-mode AD FS farm?
+
+Mixed-mode AD FS farms are meant to be temporary. We recommended that during your planning you either roll over the SSL certificate before the upgrade process or complete the process and increase the farm behavior level before you update the SSL certificate. If that recommendation wasn't followed, use the following instructions to update the SSL certificate.
+
+On Web Application Proxy servers, you can still use `Set-WebApplicationProxySslCertificate`. On the AD FS servers, you need to use netsh. Complete these steps:
+
+1. Select a subset of AD FS 2016 servers for maintenance.
+2. On the servers selected in the preceding step, import the new certificate via MMC.
+3. Delete the existing certificates:
+
+    a. `netsh http delete sslcert hostnameport=fs.contoso.com:443`
+
+    b. `netsh http delete sslcert hostnameport=localhost:443`
+
+    c. `netsh http delete sslcert hostnameport=fs.contoso.com:49443`
+4. Add the new certificates:
+
+    a. `netsh http add sslcert hostnameport=fs.contoso.com:443 certhash=THUMBPRINT appid="{5d89a20c-beab-4389-9447-324788eb944a}" certstorename=My verifyclientcertrevocation=Enable sslctlstorename=AdfsTrustedDevices`
+
+    b. `netsh http add sslcert hostnameport=localhost:443 certhash=THUMBPRINT appid="{5d89a20c-beab-4389-9447-324788eb944a}" certstorename=My verifyclientcertrevocation=Enable`
+
+    c. `netsh http add sslcert hostnameport=fs.contoso.com:49443 certhash=THUMBPRINT appid="{5d89a20c-beab-4389-9447-324788eb944a}" certstorename=My verifyclientcertrevocation=Enable clientcertnegotiation=Enable`
+5. Restart the AD FS service on the selected server.
+6. Remove a subset of Web Application Proxy servers for maintenance.
+7. On the selected Web Application Proxy servers, import the new certificate via MMC.
+8. Set the new certificate on the Web Application Proxy server by using this cmdlet:
+
+    - `Set-WebApplicationProxySslCertificate -Thumbprint " CERTTHUMBPRINT"`
+9. Restart the service on the selected Web Application Proxy servers.
+10. Put the selected Web Application Proxy and AD FS servers back in the production environment.
+
+Update the rest of the AD FS and Web Application Proxy servers in the same way.
+
+### Is AD FS supported when Web Application Proxy servers are behind Azure Web Application Firewall (WAF)?
+
+AD FS and Web Application servers support any firewall that doesn't perform SSL termination on the endpoint. Also, AD FS / Web Application Proxy servers have built-in mechanisms to:
+
+- Help prevent common web attacks like cross-site scripting.
+- Perform AD FS proxy.
+- Satisfy all requirements defined by the [MS-ADFSPIP protocol](/en-us/openspecs/windows_protocols/ms-adfspip/76deccb1-1429-4c80-8349-d38e61da5cbb).
+
+### I'm getting "Event 441: A token with a bad token binding key was found." What should I do to resolve this event?
+
+In AD FS 2016, token binding is automatically enabled and causes multiple known problems with proxy and federation scenarios. These problems cause this event. To resolve this event, run the following PowerShell command to remove token binding support:
+
+`Set-AdfsProperties -IgnoreTokenBinding $true`
+
+### I upgraded my farm from AD FS in Windows Server 2016 to AD FS in Windows Server 2019. The farm behavior level for the AD FS farm has been raised to Windows Server 2019, but the Web Application Proxy configuration still displays as Windows Server 2016.
+
+After an upgrade to Windows Server 2019, the configuration version of the Web Application Proxy will continue to display as Windows Server 2016. The Web Application Proxy doesn't have new version-specific features for Windows Server 2019. If the farm behavior level has been raised on AD FS, the Web Application Proxy will continue to display as Windows Server 2016. This behavior is by design.
+
+### Can I estimate the size of ADFSArtifactStore before I enable ESL?
+
+When ESL is enabled, AD FS tracks the account activity and known locations for users in the ADFSArtifactStore database. This database scales relative to the number of users and known locations tracked. When you're planning to enable ESL, you can estimate that the ADFSArtifactStore database will grow at a rate of up to 1 GB per 100,000 users.
+
+If the AD FS farm is using the Windows Internal Database, the default location for the database files is C:\Windows\WID\Data. To prevent filling this drive, be sure to have at least 5 GB of free storage before you enable ESL. In addition to disk storage, plan for total process memory to grow after you enable ESL by up to another 1 GB of RAM for user populations of 500,000 or less.
+
+### I'm getting Event ID 570 on AD FS 2019. How do I mitigate this event?
+
+Here's the text of the event:
+
+`Active Directory trust enumeration was unable to enumerate one of more domains due to the following error. Enumeration will continue but the Active Directory identifier list may not be correct. Validate that all expected Active Directory identifiers are present by running Get-ADFSDirectoryProperties.`
+
+This event occurs when forests aren't trusted when AD FS attempts to enumerate all the forests in a chain of trusted forests and connect across all the forests. For example, assume AD FS Forest A and Forest B are trusted and that and Forest B and Forest C are trusted. AD FS will enumerate all three forests and attempt to find a trust between Forest A and Forest C. If users from the failing forest should be authenticated by AD FS, set up a trust between the AD FS forest and the failing forest. If users from the failing forest shouldn't be authenticated by AD FS, ignore this event.
+
+### I'm getting Event ID 364. What should I do to resolve this problem?
+
+Here's the text of the event:
+
+`Microsoft.IdentityServer.AuthenticationFailedException: MSIS5015: Authentication of the presented token failed. Token Binding claim in token must match the binding provided by the channel.`
+
+In AD FS 2016, token binding is automatically enabled and causes multiple known problems with proxy and federation scenarios. These problems cause this event. To resolve the event, run the following PowerShell command to remove token binding support:
+
+`Set-AdfsProperties -IgnoreTokenBinding $true`
+
+### After the October 2026 update, OAuth sign-ins are failing with Event ID 364 / MSIS9224. How do I fix this?
+
+The October 2026 update changes AD FS to require an exact URI match for the OAuth redirect\_uri parameter [(RFC 6749 §3.1.2.3)](https://www.rfc-editor.org/info/rfc6749/#section-3.1.2.3). Previously AD FS used prefix matching, which allowed sub-paths, case variations, and wildcard-derived URIs to be accepted. These patterns are now correctly rejected. All fixes are client registration changes only — no server patch or configuration change is needed. Check the AD FS Admin event log for **Event ID 364** — the error message includes the exact **redirect\_uri** value that was rejected and the client ID, which identifies which client registration needs to be updated using `Set-AdfsClient` or `Set-AdfsNativeClientApplication.`
+
+### I'm getting Event ID 543. How do I mitigate this event?
+
+Here's the text of the event:
+
+`System.ServiceModel.FaultException: The formatter threw an error while trying to deserialize the message: There was an error while trying to deserialize parameter schemas.microsoft.com/ws/2009/12/identityserver/protocols/policystore:maxBehaviorLevel". The InnerException message was "Invalid enum value 'Win2019' cannot be deserialized into type 'Microsoft.IdentityServer.FarmBehavior'. Ensure that the necessary enum values are present and are marked with EnumMemberAttribute attribute if the type has DataContractAttribute attribute.`
+
+This event is expected when both of these statements are true:
+
+- You have a mixed-mode farm.
+- AD FS 2019 provides the farm max behavior level information to the primary federation server and isn't recognized by federation server version 2016.
+
+AD FS 2019 keeps trying to share in the farm the MaxBehaviorLevel value `Win2019` until it becomes stale after two months and is automatically removed from the farm. To avoid getting this event, migrate the primary federation role to the federation server with the latest version. Follow the instructions in [To upgrade your AD FS farm to Windows Server 2019 Farm Behavior Level](/en-us/windows-server/identity/ad-fs/deployment/upgrading-to-ad-fs-in-windows-server?source=docs#to-upgrade-your-ad-fs-farm-to-windows-server-2019-farm-behavior-level).
+
+### How do I resolve the AD FS Admin event logs error: “Received invalid Oauth request. The client &lt;NAME&gt; is forbidden to access the resource with scope ugs"?
+
+To resolve the issue, follow these steps:
+
+1. Launch the AD FS management console.
+2. Go to **Services** &gt; **Scope Descriptions**.
+3. In "**Scope Descriptions**, select **More options**, then select **Add Scope Description**.
+4. Under **Name**, enter **ugs**, then select **Apply** &gt; **OK**.
+5. Launch PowerShell as Administrator.
+6. Run the command `Get-AdfsApplicationPermission`. Look for the `ScopeNames :{openid, aza}` that has the `ClientRoleIdentifier` value. Make a note of the `ObjectIdentifier` value.
+7. Run the command `Set-AdfsApplicationPermission -TargetIdentifier <ObjectIdentifier from step 5> -AddScope 'ugs'`.
+8. Restart the AD FS service.
+9. On the client, restart the client. You should be prompted to configure Windows Hello for Business.
+10. If the configuration window doesn't pop up, then you need to collect trace logs and troubleshoot further.
+
+### Can I pass a resource value as part of the scope value like a typical request against Azure AD?
+
+Yes, but only in Windows Server 2019 or later. You can organize the scope parameter as a space-separated list where each entry is structured as a resource or scope, such as `<create a valid sample request>`.
+
+### Does AD FS support the PKCE extension?
+
+Yes, but only in Windows Server 2019 or later. AD FS supports Proof Key for Code Exchange (PKCE) for the OAuth Authorization Code Grant flow.
+
+### How do I get the security identifier (SID) extension in certificates enrolled via AD FS to satisfy the strong mapping criteria enforced at the Key Distribution Center (KDC)?
+
+AD FS enrolls for logon certificates on behalf of authenticated accounts under certain Windows Hello For Business scenarios, as documented in [Configure single sign-on for Azure Virtual Desktop using AD FS](/en-us/azure/virtual-desktop/configure-adfs-sso). By default, these certificates don't contain SID extension and are denied by KDC. For more information about the KDC requirements, see [KB5014754: Certificate-based authentication changes on Windows domain controllers](https://support.microsoft.com/topic/kb5014754-certificate-based-authentication-changes-on-windows-domain-controllers-ad2c23b0-15d8-4340-a468-4d4f3b188f16). Updates are available for AD FS on Windows Server 2019, Windows Server 2022, and Windows Server 2025 to ensure that issued certificates include the SID extension to satisfy strong mapping requirements. To enable this behavior, install the latest Windows Updates on all AD FS servers of the farm, and run the following cmdlet on the primary AD FS server:
+
+- `Set-AdfsCertificateAuthority -EnrollmentAgent -AddSIDCertificateExtension $true`

@@ -1,0 +1,226 @@
+---
+layout: Conceptual
+title: What's new with the Windows Admin Center Azure extension | Microsoft Learn
+canonicalUrl: https://learn.microsoft.com/en-us/windows-server/manage/windows-admin-center/azure/extension-release-notes
+breadcrumb_path: /windows-server/breadcrumbs/toc.json
+uhfHeaderId: MSDocsHeader-WindowsServer
+feedback_system: Standard
+recommendations: true
+ms.service: windows-server
+ms.subservice: windows-admin-center
+ms.update-cycle: 365-days
+feedback_product_url: https://aka.ms/wacfeedback
+description: This article has release notes for the Windows Admin Center agent for Windows Admin Center in Azure.
+ms.topic: overview
+author: robinharwood
+ms.author: roharwoo
+ms.date: 2023-01-23T00:00:00.0000000Z
+locale: en-us
+document_id: 7a170a6f-7ec9-b2fe-9bdd-b8cdfdea176c
+document_version_independent_id: 7a170a6f-7ec9-b2fe-9bdd-b8cdfdea176c
+original_content_git_url: https://github.com/MicrosoftDocs/windowsserverdocs-pr/blob/live/WindowsServerDocs/manage/windows-admin-center/azure/extension-release-notes.md
+site_name: Docs
+depot_name: MSDN.WindowsServerDocs-pr
+page_type: conceptual
+toc_rel: ../toc.json
+pdf_url_template: https://learn.microsoft.com/pdfstore/en-us/MSDN.WindowsServerDocs-pr/{branchName}{pdfName}
+feedback_help_link_type: ''
+feedback_help_link_url: ''
+asset_id: manage/windows-admin-center/azure/extension-release-notes
+moniker_range_name: 
+monikers: []
+item_type: Content
+source_path: WindowsServerDocs/manage/windows-admin-center/azure/extension-release-notes.md
+cmProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
+- https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
+spProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
+- https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
+platformId: f1ea5110-f756-ebb4-6d52-3277798fee6f
+---
+
+# What's new with the Windows Admin Center Azure extension | Microsoft Learn
+
+Microsoft regularly updates the Windows Admin Center Azure extension (shown as "AdminCenter" in Azure). To help you stay up to date with the most recent developments, this article provides information about:
+
+- The latest releases
+- Known issues
+- Bug fixes
+
+This page is updated monthly, so check back regularly.
+
+Note
+
+This article is only for Windows Admin Center in Azure. For release notes on Windows Admin Center on-premises, go to [release history](/en-us/windows-server/manage/windows-admin-center/support/release-history).
+
+## Version 1.0.0.0 - October 2026
+
+This release marks the general availability of Windows Admin Center for Arc-enabled Servers.
+
+### Fixed
+
+- Fixed an issue where users with Windows Server 2019 or older received the error "RegCreateKeyEx failed; code 5 - Access is denied" during install.
+
+## Version 0.85.0.0 - June 2026
+
+### New features
+
+- Updated the build of Windows Admin Center to v2606. For a full summary of new features, visit [our blog post](https://aka.ms/wac2606).
+
+### Fixed
+
+- Fixed an issue where users with personal email addresses were incorrectly blocked from using Windows Admin Center in favor of corporate or MSA accounts.
+- Fixed an issue where expected fields like filename or script name aren't logged in event logs, even though the action itself is recorded.
+- Improved security and overall product quality.
+
+## Version 0.76.0.0 - April 2026
+
+### Fixed
+
+- Updated the version of the Cluster manager extension, used to manage Azure Local, to version 5.2.6 to address a [known issue](/en-us/windows-server/manage/windows-admin-center/support/known-issues#incorrect-deletions-in-volumes-tool).
+
+## Version 0.72.0.0 - April 2026
+
+### Fixed
+
+- Reinstated the fix for an issue where installation fails on WDAC-enforced devices, including Azure Local devices.
+
+## Version 0.70.0.0 - January 2026
+
+### Fixed
+
+- Fixed an issue where connection was failing on Windows Server versions earlier than 2025.
+- Improved token encryption.
+
+## Version 0.66.0.0 - September 2025
+
+### Fixed
+
+- Modified installation logic to reduce occurrence of timeout issues.
+
+Warning
+
+Windows Admin Center in Azure extension versions 0.62.0.0 and earlier might not install successfully on Arc-enabled machines due to changes in the definition of the Windows Admin Center in Azure Arc extension.
+
+## Version 0.62.0.0 - September 2025
+
+### Fixed
+
+- Fixed an issue where the Remote Desktop extension wouldn't load.
+
+## Version 0.61.0.0 - August 2025
+
+### Fixed
+
+- Fixed an issue where installation failed on WDAC-enforced devices, including Azure Local devices.
+
+## Version 0.31.0.0 - June 2024
+
+### New features
+
+- Support for Windows 10/11 machines.
+
+### Fixed
+
+- Fixed an issue where connection to Azure Local clusters fails.
+
+## Version 0.24.0.0 - April 2024
+
+### New features
+
+- Updated the build of Windows Admin Center to use the [**new** modernized gateway](https://aka.ms/WACModernizedGatewayDoc).
+- Upgraded agent from .NET Framework 4.6.2 to .NET Core.
+- Switched to a multiprocess, microservice-based architecture, so Admin Center is more flexible, scalable, and resilient.
+- Shifted from Kantana to Kestrel HTTP web server.
+
+### Fixed
+
+- Fixed an issue where updating between versions fails because the process doesn't import certificates.
+- Fixed an issue where installation fails on WDAC-enforced devices.
+- Fixed an issue where connection fails due to a new Chromium policy impacting 1% of Edge and Chrome users.
+
+## Version 0.0.0.340 - March 2024
+
+### Fixed
+
+- Fixed an issue where the Remote Desktop tool wasn't working or resizing it made it unusable.
+- Fixed an issue where the text in some languages was garbled.
+
+## Version 0.0.0.332 - December 2023
+
+### New features
+
+- Updated the build of Windows Admin Center to v2311. For a full summary of new features, visit [our blog post](https://aka.ms/wac2311).
+- Added support for installation when TLS 1.3 is enabled.
+
+### Fixed
+
+- Fixed an issue where momentarily losing access to IMDS or HIMDS doesn't result in Windows Admin Center installation failure.
+
+## Version 0.0.0.329 - November 2023
+
+### Fixed
+
+- Removed the "Unrestricted" execution policy when Windows Admin Center scripts run.
+- Added more logging when proxies are used for better debugging.
+
+## Version 0.0.0.324 - September 2023
+
+### Fixed
+
+- Fixed an issue where Windows Admin Center's certificate validation wouldn't cause Windows Admin Center to fail if a valid certificate was already available. This issue appeared during server reboots when the "Enable" operation ran.
+
+## Version 0.0.0.323 - August 2023
+
+### Fixed
+
+- Fixed an issue where an additional URL was required when using proxies.
+- Updated the build of Windows Admin Center to the latest preview version.
+
+## Version 0.0.0.322 - July 2023
+
+### New features
+
+- Introduced support for proxies. You can now configure a proxy to monitor and filter all outbound traffic from the AdminCenter extension.
+- Updated the build of Windows Admin Center to v2306. For a full summary of new features, visit [our blog post](https://aka.ms/wac2306).
+- Introduced new management capabilities for Azure Local - Remote Support and Diagnostics.
+
+## Version 0.0.0.313 - April 2023
+
+### New features
+
+- Introduced Microsoft Entra authentication for Azure Local. This functionality is in preview. Please create a support ticket for all issues.
+- Introduced a **Network** tool.
+- Introduced Virtual Machine Live Storage Migration.
+- Introduced new security experiences for Azure Local clusters with the supplemental package.
+
+### Fixed
+
+- If a prior installation of Windows Admin Center exists on your machine, the extension first uninstalls it before installing Windows Admin Center in Azure.
+- Fixed the infinite loading of the Remote Desktop tool.
+
+## Version 0.0.0.228 - January 2023
+
+### New features
+
+- Updated the build of Windows Admin Center to v2211. A few highlights are listed. For a full summary, visit [our blog post](https://aka.ms/wac2211).
+    - Support for WDAC-enforced infrastructure.
+    - Support for 400% zoom.
+    - Search settings with smart keywords.
+    - Azure Local management improvements.
+
+## Version 0.0.0.224 - December 2022
+
+### Fixed
+
+- Fixed Microsoft Entra authentication when managing domain controllers. Microsoft Entra authentication isn't supported on domain controllers and users must enter local administrator credentials.
+
+## Version 0.0.0.221 - October 2022
+
+### New features
+
+- Introduced Microsoft Entra authentication for Windows Server Azure Virtual Machines and Arc-enabled Servers. Azure Local doesn't support Microsoft Entra authentication yet.
+- Windows Admin Center for Azure Virtual Machines is now generally available. Windows Admin Center for Arc-enabled servers and Azure Local remains in Public Preview.

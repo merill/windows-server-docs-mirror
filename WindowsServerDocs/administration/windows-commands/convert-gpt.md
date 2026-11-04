@@ -1,0 +1,78 @@
+---
+layout: Conceptual
+title: convert gpt | Microsoft Learn
+canonicalUrl: https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/convert-gpt
+breadcrumb_path: /windows-server/breadcrumbs/toc.json
+uhfHeaderId: MSDocsHeader-WindowsServer
+feedback_system: Standard
+recommendations: true
+ms.service: windows-server
+ms.subservice: windows-commands
+ms.update-cycle: 1095-days
+description: Reference article for the convert gpt command, which converts an empty basic disk with the master boot record (MBR) partition style into a basic disk with the GUID partition table (GPT) partition style.
+ms.topic: reference
+ms.author: roharwoo
+author: robinharwood
+ms.date: 2017-10-16T00:00:00.0000000Z
+locale: en-us
+document_id: 87285d8c-0f36-d5bc-2043-a85aa2a6445b
+document_version_independent_id: 16101d2a-9f7f-0efb-d196-5e482897ad0e
+original_content_git_url: https://github.com/MicrosoftDocs/windowsserverdocs-pr/blob/live/WindowsServerDocs/administration/windows-commands/convert-gpt.md
+site_name: Docs
+depot_name: MSDN.WindowsServerDocs-pr
+page_type: conceptual
+toc_rel: toc.json
+pdf_url_template: https://learn.microsoft.com/pdfstore/en-us/MSDN.WindowsServerDocs-pr/{branchName}{pdfName}
+feedback_product_url: ''
+feedback_help_link_type: ''
+feedback_help_link_url: ''
+asset_id: administration/windows-commands/convert-gpt
+moniker_range_name: 
+monikers: []
+item_type: Content
+source_path: WindowsServerDocs/administration/windows-commands/convert-gpt.md
+cmProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/fc3f72c2-fb6f-4cea-95ee-b444e52254ee
+- https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
+spProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/c783a8fb-cf36-41ad-90c6-0692a0540484
+- https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
+platformId: 9596e78b-2508-44ec-aa35-c4d82034edbc
+---
+
+# convert gpt | Microsoft Learn
+
+Converts an empty basic disk with the master boot record (MBR) partition style into a basic disk with the GUID partition table (GPT) partition style. A basic MBR disk must be selected for this operation to succeed. Use the [select disk command](select-disk) to select a basic disk and shift the focus to it.
+
+Important
+
+The disk must be empty to convert it to a basic disk. Back up your data, and then delete all partitions or volumes before converting the disk. The required minimum disk size for conversion to GPT is 128 megabytes.
+
+Note
+
+For instructions regarding how to use this command, see [Change a Master Boot Record Disk into a GUID Partition Table Disk](/en-us/previous-versions/windows/it-pro/windows-server-2008-r2-and-2008/cc725671%28v=ws.11%29).
+
+## Syntax
+
+```
+convert gpt [noerr]
+```
+
+### Parameters
+
+| Parameter | Description |
+| --- | --- |
+| noerr | For scripting only. When an error is encountered, DiskPart continues to process commands as if the error did not occur. Without this parameter, an error causes DiskPart to exit with an error code. |
+
+## Examples
+
+To convert a basic disc from MBR partition style to GPT partition style, type:
+
+```
+convert gpt
+```
+
+## Related links
+
+- [Command-Line Syntax Key](command-line-syntax-key)
+- [convert command](convert)

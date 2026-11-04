@@ -1,0 +1,99 @@
+---
+layout: Conceptual
+title: STEP 5 Configure DC1 | Microsoft Learn
+canonicalUrl: https://learn.microsoft.com/en-us/windows-server/remote/remote-access/directaccess/tlg-multisite/step-5-configure-dc1
+breadcrumb_path: /windows-server/breadcrumbs/toc.json
+uhfHeaderId: MSDocsHeader-WindowsServer
+feedback_system: Standard
+recommendations: true
+ms.service: windows-server
+ms.subservice: remote
+ms.update-cycle: 1095-days
+description: Learn how to configure the default gateway on the domain controller, create security groups for Windows 7 DirectAccess clients on DC1, and add a new AD DS site.
+ms.topic: how-to
+ms.author: roharwoo
+author: robinharwood
+ms.date: 2020-08-07T00:00:00.0000000Z
+locale: en-us
+document_id: 92588ab6-c430-aefa-0663-a0aaf9f2cb38
+document_version_independent_id: 8100dfef-92b9-259c-7d80-9cf8405dcc36
+original_content_git_url: https://github.com/MicrosoftDocs/windowsserverdocs-pr/blob/live/WindowsServerDocs/remote/remote-access/directaccess/tlg-multisite/STEP-5-Configure-DC1.md
+site_name: Docs
+depot_name: MSDN.WindowsServerDocs-pr
+page_type: conceptual
+toc_rel: ../../../toc.json
+pdf_url_template: https://learn.microsoft.com/pdfstore/en-us/MSDN.WindowsServerDocs-pr/{branchName}{pdfName}
+feedback_product_url: ''
+feedback_help_link_type: ''
+feedback_help_link_url: ''
+asset_id: remote/remote-access/directaccess/tlg-multisite/step-5-configure-dc1
+moniker_range_name: 
+monikers: []
+item_type: Content
+source_path: WindowsServerDocs/remote/remote-access/directaccess/tlg-multisite/STEP-5-Configure-DC1.md
+cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/1433a524-c01f-4b87-beab-670c040dea4f
+spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/312f1f05-a431-4193-8a4d-e6245d5966de
+platformId: 78ae0678-feca-4cad-c87c-64d8d5d21245
+---
+
+# STEP 5 Configure DC1 | Microsoft Learn
+
+DC1 acts as a domain controller, DNS server, and DHCP server for the corp.contoso.com domain.
+
+To configure Remote Access to use a multisite topology, it is necessary to add an additional Active Directory Domain Services (AD DS) site for the second domain controller 2-DC1, and to configure routing between the subnets.
+
+1. To configure the default gateway on the domain controller. Configure the default gateway on DC1.
+2. Create security groups for Windows 7 DirectAccess clients on DC1. When DirectAccess is configured, it automatically creates Group Policy Objects (GPOs) and GPO settings that are applied to DirectAccess clients and servers. The DirectAccess client GPO is applied to specific Active Directory security groups.
+3. To add a new AD DS site. Create a second AD DS site.
+
+## To configure the default gateway on the domain controller
+
+1. In the Server Manager console, click **Local Server**, and then in the **Properties** area, next to **Wired Ethernet Connection**, click the link.
+2. In the Network Connections window, right-click **Wired Ethernet Connection**, and then click **Properties**.
+3. Click **Internet Protocol Version 4 (TCP/IPv4)**, and then click **Properties**.
+4. In **Default gateway**, type **10.0.0.254**, and in **Alternate DNS server**, type **10.2.0.1**, and then click **OK**.
+5. Click **Internet Protocol Version 6 (TCP/IPv6)**, and then click **Properties**.
+6. In **Default gateway**, type **2001:db8:1::fe**, and in **Alternate DNS server**, type **2001:db8:2::1**, and then click **OK**.
+7. On the **Wired Ethernet Connection Properties** dialog box, click **Close**.
+8. Close the **Network Connections** window.
+
+## Create security groups for Windows 7 DirectAccess clients on DC1
+
+Create the DirectAccess security groups for Windows 7 with the following procedure.
+
+Windows 7 client computers must be members of separate security groups because they are able to connect to internal resources through a single entry point only. When enabling Multisite support or adding entry points, if Windows 7 support is requested, then a separate GPO will be automatically created by DirectAccess for Windows 7 clients for each entry point.
+
+### Create security groups
+
+1. On the **Start** screen, type**dsa.msc**, and then press ENTER.
+2. In the left pane, expand **corp.contoso.com**, click **Users**, then right-click **Users**, point to **New**, and then click **Group**.
+3. On the **New Object - Group** dialog box, under **Group name**, enter **Win7\_Clients\_Site1**.
+4. Under **Group scope**, click **Global**, under **Group type**, click **Security**, and then click **OK**.
+5. Double-click the **Win7\_Clients\_Site1** security group, and on the **Win7\_Clients\_Site1 Properties** dialog box, click the **Members** tab.
+6. On the **Members** tab, click **Add**.
+7. On the **Select Users, Contacts, Computers, or Service Accounts** dialog box, click **Object Types**. On the **Object Types** dialog box, select **Computers**, and then click **OK**.
+8. In **Enter the object names to select**, type **client2**, and then click **OK**, and then on the **Win7\_Clients\_Site1 Properties** dialog box click **OK**.
+9. In the **Active Directory Users and Computers** console, in the left pane, right-click **Users**, point to **New**, and then click **Group**.
+10. On the **New Object - Group** dialog box, under **Group name**, enter **Win7\_Clients\_Site2**.
+11. Under **Group scope**, click **Global**, under **Group type**, click **Security**, and then click **OK**.
+12. Close the **Active Directory Users and Computers** console.
+
+## To add a new AD DS site
+
+1. On the **Start** screen, type**dssite.msc**, and then press ENTER.
+2. In the Active Directory Sites and Services console, in the console tree, right-click **Sites**, and then click **New Site**.
+3. On the **New Object - Site** dialog box, in the **Name** box, type **Second-Site**.
+4. In the list box, click **DEFAULTIPSITELINK**, and then click **OK** twice.
+5. In the console tree, expand **Sites**, right-click **Subnets**, and then click **New Subnet**.
+6. On the **New Object - Subnet** dialog box, under **Prefix**, type **10.0.0.0/24**, in the **Select a site object for this prefix** list, click **Default-First-Site-Name**, and then click **OK**.
+7. In the console tree, right-click **Subnets**, and then click **New Subnet**.
+8. On the **New Object - Subnet** dialog box, under **Prefix**, type **2001:db8:1::/64**, in the **Select a site object for this prefix** list, click **Default-First-Site-Name**, and then click **OK**.
+9. In the console tree, right-click **Subnets**, and then click **New Subnet**.
+10. On the **New Object - Subnet** dialog box, under **Prefix**, type **10.2.0.0/24**, in the **Select a site object for this prefix** list, click **Second-Site**, and then click **OK**.
+11. In the console tree, right-click **Subnets**, and then click **New Subnet**.
+12. On the **New Object - Subnet** dialog box, under **Prefix**, type **2001:db8:2::/64**, in the **Select a site object for this prefix** list, click **Second-Site**, and then click **OK**.
+13. Close Active Directory Sites and Services.
