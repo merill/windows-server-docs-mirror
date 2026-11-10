@@ -42,7 +42,7 @@ platformId: 21069ff1-a367-c8b8-91f3-6ccdec88d15c
 
 **Applies to:** Windows Server 2012 and later versions
 
-By default, Network Device Enrollment Service (NDES) rejects certificate enrollment requests that contain security identifier (SID) information in either the Subject Alternative Name (SAN) extension or a separate SID extension, unless you configure a custom NDES policy module. This security change was introduced in the October 2026 Windows Server security updates to help prevent certificate-based impersonation attacks.
+By default, Network Device Enrollment Service (NDES) rejects certificate enrollment requests that contain security identifier (SID) information in either the Subject Alternative Name (SAN) extension or a separate SID extension, unless you configure a custom NDES policy module. This behavior is one of several changes introduced in the October 2026 Windows Server security updates to address [CVE-2026-69802](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69802). These changes help prevent certificate-based impersonation attacks.
 
 In this article, you learn how to configure NDES to allow certificate enrollment requests that contain SID information when a trusted component validates that information.
 
