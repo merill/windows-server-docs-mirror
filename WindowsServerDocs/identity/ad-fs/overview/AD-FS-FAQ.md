@@ -377,6 +377,17 @@ When ESL is enabled, AD FS tracks the account activity and known locations for u
 
 If the AD FS farm is using the Windows Internal Database, the default location for the database files is C:\Windows\WID\Data. To prevent filling this drive, be sure to have at least 5 GB of free storage before you enable ESL. In addition to disk storage, plan for total process memory to grow after you enable ESL by up to another 1 GB of RAM for user populations of 500,000 or less.
 
+### How can I prevent unexpected outbound DNS and CLDAP traffic from AD FS username and password requests?
+
+When AD FS processes a username and password authentication request, it might perform domain controller discovery. If the request contains an unrecognized domain identifier, this discovery can send DNS SRV queries and Connectionless Lightweight Directory Access Protocol (CLDAP) pings to destinations outside your organization.
+
+To mitigate this behavior, we recommend that you:
+
+1. **Enable Extranet Smart Lockout (ESL).** In AD FS on Windows Server 2019 and later, ESL provides additional validation of untrusted domain identifiers. This validation helps prevent these requests from triggering outbound domain controller discovery. For prerequisites and guidance on moving from Log-Only mode to Enforce mode, see [Configure AD FS Extranet Smart Lockout protection](../operations/configure-ad-fs-extranet-smart-lockout-protection).
+2. **Restrict outbound CLDAP traffic.** Configure egress firewall rules on your AD FS servers and domain controllers to block traffic to UDP destination port 389 on untrusted networks, including internet destinations. Make sure you allow connectivity to domain controllers in your organization and in trusted forests.
+
+After you apply these restrictions, verify that user authentication works as expected, including cross-forest authentication.
+
 ### I'm getting Event ID 570 on AD FS 2019. How do I mitigate this event?
 
 Here's the text of the event:
