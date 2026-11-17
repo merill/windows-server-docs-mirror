@@ -1,6 +1,6 @@
 ---
 layout: Conceptual
-title: What is SMB File Sharing for Windows and Windows Server? | Microsoft Learn
+title: What is SMB File Sharing for Windows and Windows Server | Microsoft Learn
 canonicalUrl: https://learn.microsoft.com/en-us/windows-server/storage/file-server/file-server-smb-overview
 breadcrumb_path: /windows-server/breadcrumbs/toc.json
 uhfHeaderId: MSDocsHeader-WindowsServer
@@ -13,7 +13,7 @@ description: Learn how the SMB protocol enhances file sharing in Windows Server 
 ms.topic: overview
 author: robinharwood
 ms.author: roharwoo
-ms.date: 2025-11-27T00:00:00.0000000Z
+ms.date: 2026-11-10T00:00:00.0000000Z
 ai-usage: ai-assisted
 ms.custom: os_security, network_security
 locale: en-us
@@ -36,15 +36,15 @@ source_path: WindowsServerDocs/storage/file-server/file-server-smb-overview.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/fc3f72c2-fb6f-4cea-95ee-b444e52254ee
 - https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
-- https://authoring-docs-microsoft.poolparty.biz/devrel/cbe4ca68-43ac-4375-aba5-5945a6394c20
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/f12cf087-582d-48ac-a085-0c19adf1e391
 - https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
-- https://authoring-docs-microsoft.poolparty.biz/devrel/ced846cc-6a3c-4c8f-9dfb-3de0e90e2742
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: d018650c-b087-55fa-ba4f-62364d42b9c3
 ---
 
-# What is SMB File Sharing for Windows and Windows Server? | Microsoft Learn
+# What is SMB File Sharing for Windows and Windows Server | Microsoft Learn
 
 This article provides an overview of the Server Message Block (SMB) protocol in Windows. It covers practical applications, features, and key concepts for file sharing.
 
@@ -72,7 +72,7 @@ SMB includes a wide range of features organized into the following categories:
 - **Networking and connectivity** - SMB supports multiple transport options including traditional TCP, QUIC for secure internet access without VPN, and RDMA for high-performance datacenter workloads. Features like alternative ports and firewall hardening provide other flexibility and security.
 - **Performance** - SMB includes features to optimize file transfer speeds and reduce network overhead, including compression, bandwidth limits, directory caching, and WAN optimizations.
 - **High availability and scale** - For enterprise environments, SMB supports transparent failover, scale-out file servers, and rolling cluster upgrades to ensure continuous access to file shares during maintenance or failures.
-- **Management and monitoring** - Administrators can manage SMB using PowerShell cmdlets, control dialect versions, and monitor performance through dedicated counters.
+- **Management and monitoring** - Administrators can manage SMB by using PowerShell cmdlets, control dialect versions, and monitor performance through dedicated counters. The SMB Policy Controller (preview) is available in Windows Server Insider Preview build 29707 or later and Windows 11. It uses intent-based configuration to define the desired state of server-wide and share-specific SMB settings, then reconciles the settings to maintain that state. For more information, see [SMB Policy Controller in Windows Server](smb-policy-controller).
 
 For detailed information about individual features and their availability across Windows versions, see [SMB features in Windows and Windows Server](smb-feature-descriptions).
 

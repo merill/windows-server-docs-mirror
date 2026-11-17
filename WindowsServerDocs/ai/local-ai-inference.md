@@ -1,18 +1,18 @@
 ---
 layout: Conceptual
-title: Local AI Inference for Windows Server | Microsoft Learn
+title: Hybrid Intelligence on Windows Server | Microsoft Learn
 canonicalUrl: https://learn.microsoft.com/en-us/windows-server/ai/local-ai-inference
 breadcrumb_path: /windows-server/breadcrumbs/toc.json
 uhfHeaderId: MSDocsHeader-WindowsServer
 feedback_system: Standard
 recommendations: true
 ms.update-cycle: 1095-days
-description: Distributed AI inference on Windows Server lets remote clients share a model endpoint that your organization operates centrally. Compare inference approaches and plan infrastructure.
+description: Learn how Hybrid Intelligence on Windows Server supports distributed, embedded, and on-device inference, and compare the infrastructure and operational considerations.
 author: robinharwood
 ms.author: roharwoo
 ms.topic: concept-article
 ms.service: windows-server
-ms.date: 2026-09-25T00:00:00.0000000Z
+ms.date: 2026-11-16T00:00:00.0000000Z
 ai-usage: ai-assisted
 locale: en-us
 document_id: 8a251709-892b-a308-f7d6-6ee0edd4a0be
@@ -38,13 +38,11 @@ spProducts:
 platformId: b2603631-2f7c-6ede-d7eb-8738d3bad1a6
 ---
 
-# Local AI Inference for Windows Server | Microsoft Learn
+# Hybrid Intelligence on Windows Server | Microsoft Learn
 
-**Local AI inference** is the process of running a trained AI model on infrastructure that you or your organization controls. The primary Windows Server scenario is distributed inference: an OpenAI-compatible model server runs on Windows Server, and remote clients send requests to its endpoint over the network. For example, Visual Studio Code on a Windows 11 workstation can send prompts to the server and receive generated output.
+Hybrid Intelligence on Windows Server is an approach to running AI models on infrastructure that your organization controls and connecting applications and tools to those models. It can provide shared model compute through a Windows Server Token factory endpoint or run inference within an application or on a single device. These options help organizations place model execution near their applications and data while controlling where requests and outputs travel.
 
-Organizations use distributed inference to give multiple clients access to shared model compute while controlling where requests and outputs travel. That control depends on the endpoint location, network path, client configuration, model acquisition, diagnostics, and other services in the solution.
-
-This article helps Windows Server administrators and developers decide when to use local inference and identify the infrastructure considerations for that choice.
+This article compares distributed, embedded, and on-device inference so that you can choose an approach and understand the infrastructure, security, and operational considerations for Windows Server.
 
 ## How AI inference works on Windows Server
 
@@ -109,8 +107,8 @@ Local inference can support developer, administrator, and application workloads 
 
 ## Next steps for local AI inference on Windows Server
 
-- [Configure GitHub Copilot CLI for local inference](configure-github-copilot-cli-local-inference)
-- [Configure Visual Studio Code to use a local model endpoint](configure-visual-studio-code-local-models)
+- [Connect GitHub Copilot CLI to a Windows Server Token factory endpoint](configure-github-copilot-cli-local-inference)
+- [Connect Visual Studio Code to a Windows Server Token factory endpoint](configure-visual-studio-code-local-models)
 - [Connect Intelligent Terminal Preview to a local model endpoint](configure-intelligent-terminal-local-language-model)
 - [Connect to OpenAI-compatible endpoints with Microsoft Agent Framework](/en-us/agent-framework/hosting/self-hosting/openai-endpoints)
 - [Run ONNX models by using Windows ML](/en-us/windows/ai/new-windows-ml/run-onnx-models)

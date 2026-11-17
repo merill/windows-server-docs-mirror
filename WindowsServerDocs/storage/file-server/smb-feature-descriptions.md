@@ -13,7 +13,7 @@ description: Discover the SMB features available in different Windows versions t
 author: robinharwood
 ms.author: roharwoo
 ms.topic: concept-article
-ms.date: 2025-11-27T00:00:00.0000000Z
+ms.date: 2026-11-10T00:00:00.0000000Z
 ai-usage: ai-assisted
 locale: en-us
 document_id: 24a1c968-c5de-5a12-8b50-1c9b942152db
@@ -53,7 +53,7 @@ SMB features include:
 - **Networking and connectivity** options including SMB over QUIC for secure access without VPN, alternative ports, and RDMA support for high-performance workloads.
 - **Performance** enhancements such as SMB compression, bandwidth limits, and improved directory caching.
 - **High availability and scale** features like transparent failover, scale-out file servers, and rolling cluster upgrades.
-- **Management and monitoring** tools including PowerShell cmdlets, performance counters, and dialect control.
+- **Management and monitoring** tools including PowerShell cmdlets, performance counters, dialect control, and intent-based configuration with SMB Policy Controller.
 
 For more information about specific SMB capabilities, see [SMB security enhancements](smb-security), [SMB over QUIC](smb-over-quic), and [SMB compression](smb-compression).
 
@@ -620,6 +620,19 @@ Down-level clients can connect to file shares that have the CA property, but tra
 Support for multiple SMB instances on a Scale-Out File Server. Using Cluster Shared Volumes (CSV) version 2, administrators can create file shares that provide simultaneous access to data files, with direct I/O, through all nodes in a file server cluster. SMB Scale Out provides better utilization of network bandwidth and load balancing of the file server clients, and optimizes performance for server applications.
 
 ### Management and monitoring
+
+#### SMB Policy Controller (preview)
+
+**SMB dialect version**: Not applicable
+
+**Availability**:
+
+- 🖥️ Server: Windows Server Insider Preview build 29707 or later
+- 💻 Client: Not applicable (server-side feature)
+
+**Description**:
+
+SMB Policy Controller (preview) is available in Windows Server Insider Preview build 29707 or later. It uses intent-based configuration and reconciliation to maintain server-wide and share-specific SMB settings. Administrators use PowerShell to select security or performance outcomes, verify the effective configuration, and manage configuration drift. For more information, see [SMB Policy Controller](smb-policy-controller).
 
 #### SMB dialect control
 

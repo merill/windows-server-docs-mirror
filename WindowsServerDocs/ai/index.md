@@ -1,6 +1,6 @@
 ---
 layout: Landing
-title: Windows Server AI Inference Documentation | Microsoft Learn
+title: Hybrid Intelligence on Windows Server documentation | Microsoft Learn
 canonicalUrl: https://learn.microsoft.com/en-us/windows-server/ai/
 summary: Explore distributed AI inference on Windows Server. Compare runtimes, connect clients to endpoints, build with SQL Server, and plan GPU infrastructure.
 breadcrumb_path: /windows-server/breadcrumbs/toc.json
@@ -38,11 +38,11 @@ spProducts:
 platformId: 14476ec9-2a0f-6c0f-6b86-50a60cc70170
 ---
 
-# Distributed AI inference on Windows Server documentation
+# Hybrid Intelligence on Windows Server documentation
 
 Explore distributed AI inference on Windows Server. Compare runtimes, connect clients to endpoints, build with SQL Server, and plan GPU infrastructure.
 
-## Plan and deploy AI inference
+## Plan and deploy Hybrid Intelligence
 
 ### How-To Guide
 
@@ -76,8 +76,8 @@ Explore distributed AI inference on Windows Server. Compare runtimes, connect cl
 
 ### How-To Guide
 
-- [Connect GitHub Copilot CLI to a Windows Server inference endpoint](configure-github-copilot-cli-local-inference)
-- [Connect Visual Studio Code to local and remote model endpoints](configure-visual-studio-code-local-models)
+- [Connect GitHub Copilot CLI to a Windows Server Token factory endpoint](configure-github-copilot-cli-local-inference)
+- [Connect Visual Studio Code to a Windows Server Token factory endpoint](configure-visual-studio-code-local-models)
 - [Connect Intelligent Terminal Preview to a Windows Server model endpoint](configure-intelligent-terminal-local-language-model)
 
 ## Build AI solutions with SQL Server
