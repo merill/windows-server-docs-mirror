@@ -10,11 +10,11 @@ ms.service: windows-server
 ms.subservice: windows-admin-center
 ms.update-cycle: 365-days
 feedback_product_url: https://aka.ms/wacfeedback
-description: Configuring Azure Integration Windows Admin Center (Project Honolulu). Connecting your Windows Admin Center gateway to Azure.
+description: Configure Azure integration in Windows Admin Center by registering your gateway with Azure role-based access control or your own Microsoft Entra application.
 ms.topic: how-to
 author: robinharwood
 ms.author: roharwoo
-ms.date: 2021-10-18T00:00:00.0000000Z
+ms.date: 2026-11-04T00:00:00.0000000Z
 ms.custom: sfi-ropc-nochange
 locale: en-us
 document_id: 374adde8-b1b0-d416-bae0-4d60b0a71a5a
@@ -34,12 +34,12 @@ item_type: Content
 source_path: WindowsServerDocs/manage/windows-admin-center/azure/azure-integration.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
 - https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
 - https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
 platformId: 4d4108ef-997b-2e05-0eb2-a66cd39fcc7c
 ---
 
@@ -47,9 +47,163 @@ platformId: 4d4108ef-997b-2e05-0eb2-a66cd39fcc7c
 
 Windows Admin Center supports several optional features that integrate with Azure services. [Learn about the Azure integration options available with Windows Admin Center.](./)
 
-To allow the Windows Admin Center gateway to communicate with Azure to leverage Microsoft Entra authentication for gateway access, or to create Azure resources on your behalf (for example, to protect VMs managed in Windows Admin Center using Azure Site Recovery), you need to first register your Windows Admin Center gateway with Azure. You only need to do this action once for your Windows Admin Center gateway - the setting is preserved when you update your gateway to a newer version.
+Register the Windows Admin Center gateway with Azure to use Microsoft Entra authentication for gateway access and create Azure resources through Windows Admin Center. Starting with Windows Admin Center version 2611, you can register by using Azure role-based access control (Azure RBAC) without creating a Microsoft Entra application or obtaining tenant-wide administrator consent. Alternatively, you can use your own Microsoft Entra application with the `WACAdmin` and `WACUser` app roles. Both models use a Microsoft sign-in window, so you don't need to configure redirect URIs for the gateway URL, port, or certificate.
+
+This article shows you how to choose a registration model, register the gateway, and manage registration and sign-in.
+
+Important
+
+If you're updating from a version earlier than 2611, your existing Azure registration isn't carried over. After the update, the gateway is unregistered and all users are signed out of Azure. Re-register the gateway by using the steps in this article. If you previously used your own Microsoft Entra app, you can select it again during registration - you don't need to create a new one.
+
+## Choose a registration model
+
+Each gateway uses one registration model at a time. Pick the one that matches how you want to control who can perform Azure operations in Windows Admin Center.
+
+| - | Azure RBAC (recommended) | Windows Admin Center RBAC application |
+| --- | --- | --- |
+| **Best for** | Most organizations; the fastest way to get started | Organizations that want to gate Azure access in Windows Admin Center with their own app roles |
+| **Microsoft Entra app** | None required. Windows Admin Center uses a Microsoft-provided app. | Your own app registration, which must include `WAC` in its display name |
+| **Who can sign in** | Any user in the registered tenant | Users assigned the `WACAdmin` or `WACUser` app role |
+| **What governs Azure access** | Each user's Azure role assignments | Your app roles, plus each user's Azure role assignments on the resources they access |
+| **Setup before registering** | None | Create the app and its roles, and enable public client flows |
+| **Supported in** | Administration Mode and Virtualization Mode | Administration Mode only |
+
+You can also sign in to Azure *without* registering the gateway. This option is useful for a quick, single-administrator setup, but it doesn't restrict access by tenant or app role. For more information, see Sign in without registering.
+
+## Prerequisites for Azure registration in Windows Admin Center
+
+- You must be a Windows Admin Center gateway administrator to register or unregister the gateway. Learn more about [Windows Admin Center user and administrator permissions](../configure/user-access-control#gateway-access-role-definitions).
+- You need a Microsoft Entra account in the tenant you want to register the gateway with.
+- To use the Windows Admin Center RBAC application model, you need permission to create or manage app registrations in your tenant (or an existing app that meets the requirements for your Microsoft Entra app).
+
+Note
+
+If you enable Microsoft Defender Application Guard for your browser, you can't register Windows Admin Center with Azure or sign in to Azure.
 
 ## Register your gateway with Azure
+
+Registration works differently depending on which mode your gateway runs in. Select the tab for your mode to see the steps.
+
+# [Administration Mode](#tab/administration-mode)
+The first time you try to use an Azure integration feature, Windows Admin Center takes you to the registration page. You can also get there directly:
+
+1. In Windows Admin Center, select the **Settings** gear, and then under **Gateway**, select **Register**.
+2. Under **Register with access control (recommended)**, open the **Access governance method**dropdown and choose one of the following:
+    - **Azure RBAC** – Access is managed with Azure role assignments.
+    - **WACAdmin and WACUser roles in your own application** – Access is managed with roles defined in your own app registration. If you select this option, choose your app from the list. Only applications whose display name contains `WAC` are listed.
+3. Select **Register**. The button stays unavailable until you choose a governance method.
+4. In the Microsoft sign-in window that opens, pick your account and confirm the sign-in.
+5. When registration finishes, the **Access control** card shows **Registered with access control**, and you're signed in to Azure.
+
+Registering also signs you in, so you can start using Azure features right away.
+
+If **Register** is unavailable after you make a selection, check the following:
+
+- **You aren't a gateway administrator.** Only gateway administrators can register the gateway.
+- **You're signed in without registration.** Sign out of the current Azure session first. The page shows: *To configure access control, sign out of the current Azure session.*
+
+# [Virtualization Mode](#tab/virtualization-mode)
+Virtualization Mode keeps things streamlined: there's no separate registration page, and the gateway always registers with **Azure RBAC**.
+
+1. In Windows Admin Center, select the Azure account control.
+2. If a gateway administrator didn't register the gateway yet and you're a Windows Admin Center gateway administrator, select **Sign in and register**. This action registers the gateway with your tenant and signs you in, all in one step.
+3. Pick your account in the Microsoft sign-in window and confirm.
+
+After the gateway is registered, other users see only **Sign in**, and they're asked to sign in to the registered tenant.
+
+Note
+
+In Virtualization Mode, users can't sign in to Azure until a Windows Admin Center gateway administrator registers the gateway. If you aren't a gateway administrator and no Windows Admin Center gateway administrator registered the gateway, ask a Windows Admin Center gateway administrator to register it.
+
+---
+
+## Prepare your own Microsoft Entra app
+
+This section applies to Administration Mode only. Skip it if you're using Azure RBAC.
+
+To use the Windows Admin Center RBAC application model, your app registration must:
+
+1. **Include `WAC` in its display name.** The app picker only lists apps whose display name contains `WAC`. For example, *Contoso-WAC-Gateway*.
+2. **Define two app roles:**`WACAdmin` and `WACUser`. Assign these roles to the users and groups who should be able to use Azure features in Windows Admin Center.
+3. **Allow public client flows.** In the Microsoft Entra admin center, go to **Identity** &gt; **Applications** &gt; **App registrations**, select your app, select **Authentication**, and set **Allow public client flows** to **Yes**.
+
+For steps to create app roles and assign users, see [Add app roles to your application](/en-us/entra/identity-platform/howto-add-app-roles-in-apps).
+
+## Sign in without registering (Administration Mode)
+
+In Administration Mode, a gateway administrator can sign in to Azure without registering the gateway. In this state:
+
+- The **Azure session** card shows that you're signed in, with **Authorization mode: Personal**.
+- Only gateway administrators can sign in.
+- Access isn't restricted to a specific tenant or app role.
+
+To set up access control later, sign out of the current Azure session, and then follow the steps in Register your gateway with Azure.
+
+## View and manage your registration
+
+After registration, the **Access control** card shows the current configuration:
+
+- **Registration model** – **Azure RBAC** or **Windows Admin Center RBAC application**.
+- **Tenant** and **Tenant ID** – For Azure RBAC registrations. If the tenant's display name isn't available (for example, for gateways registered before this was captured), only the tenant ID appears.
+- **App name** and **App ID** – For Windows Admin Center RBAC application registrations.
+
+Select **Manage registration** to see more details, such as the Azure cloud, and a **View in Azure** link.
+
+The **Azure session** card shows who's signed in and how the session is authorized:
+
+| Authorization mode | Meaning |
+| --- | --- |
+| Personal | The gateway isn't registered. Only gateway administrators can sign in. |
+| Tenant-locked | The gateway is registered with Azure RBAC. Sign-in is limited to the registered tenant. |
+| WAC RBAC | The gateway is registered with your own application. Sign-in requires the `WACAdmin` or `WACUser` role. |
+
+### Change or remove a registration
+
+To switch models or move to a different tenant or app, unregister the gateway and register it again.
+
+Warning
+
+Unregistering removes the gateway's registration and every user's stored Azure sign-in. All users are signed out of Azure and must sign in again after you re-register.
+
+## Use Microsoft Entra authentication for gateway access
+
+You can require users to [authenticate with Microsoft Entra ID](../configure/user-access-control#azure-active-directory) before they can open Windows Admin Center. This setting, on the **Access** page of gateway settings, is available only when the gateway is registered with the **Windows Admin Center RBAC application** model. If the gateway is registered with Azure RBAC, the setting is unavailable—unregister and re-register with your own application to use it.
+
+## Azure sign-in session behavior in Windows Admin Center
+
+- **Sign-in is per browser.** Your Azure sign-in is stored securely on the gateway and can only be unlocked by the browser you signed in with. If you open Windows Admin Center in a different browser or on a different machine, you're asked to sign in again.
+- **Sessions last up to about 90 days.** You won't be asked to sign in again unless you sign out, your browser data is cleared, the session expires, or an administrator unregisters the gateway.
+
+## Troubleshoot Azure registration and sign-in
+
+### Register is unavailable
+
+See the checklist in Register your gateway with Azure. You must be a gateway administrator, and you can't register while signed in without registration.
+
+### My app doesn't appear in the app picker
+
+Make sure the app's display name contains `WAC`, and that you're signed in to the tenant where the app is registered.
+
+### "You don't have access" after signing in
+
+- **Azure RBAC:** Confirm you signed in with an account in the registered tenant. Accounts from other tenants are rejected.
+- **Windows Admin Center RBAC application:** Confirm the account is assigned the `WACAdmin` or `WACUser` role on the app.
+
+If you can sign in but an Azure feature fails, check that the account has the Azure role assignments required by that feature on the target subscription or resource group.
+
+### I was signed out after updating Windows Admin Center
+
+This sign-out behavior is expected when updating from a version earlier than 2611. Re-register the gateway. If you previously used your own app, select it from the app picker during registration.
+
+### Errors on versions earlier than 2611
+
+If you're running a version earlier than 2611, you might see redirect URI errors, such as *The redirect URI doesn't match the URIs configured for this application* or *Cross-origin token redemption is permitted only for the 'Single-Page Application' client type*. Update to the latest version of Windows Admin Center and re-register, which doesn't use redirect URIs. If you can't update yet, see Azure registration in versions earlier than 2611.
+
+## Azure registration in versions earlier than 2611
+
+The following guidance applies to Windows Admin Center versions earlier than 2611, which register the gateway by creating or using a Microsoft Entra app with redirect URIs.
+
+### Register your gateway (versions earlier than 2611)
 
 The first time you try to use an Azure integration feature in Windows Admin Center, you're prompted to register the gateway to Azure. You can also register the gateway by going to the **Azure** tab in Windows Admin Center Settings. Only Windows Admin Center gateway administrators can register the Windows Admin Center gateway with Azure. [Learn more about Windows Admin Center user and administrator permissions](../configure/user-access-control#gateway-access-role-definitions).
 
@@ -77,12 +231,6 @@ If you want to configure a Microsoft Entra app manually, rather than using the M
             }
     ],
     ```
-
-Note
-
-If you enable Microsoft Defender Application Guard for your browser, you can't register Windows Admin Center with Azure or sign into Azure.
-
-## Troubleshooting Azure sign-in errors
 
 ### The redirect URI doesn't match the URIs configured for this application
 
@@ -122,9 +270,3 @@ Follow these steps for application registrations that are currently configured w
 Instead of updating existing URIs, you can create a new application registration for your gateway. App registrations that are newly created for Windows Admin Center through the gateway registration flow create Single-Page Application platform redirect URIs.
 
 If you can't migrate your application registration's redirect URIs to use auth code flow, you can continue to use the existing application registration as is. To do so, you must unregister your Windows Admin Center gateway and re-register with the same application registration ID.
-
-## Stay updated
-
-[Follow us on Twitter](https://twitter.com/servermgmt)
-
-[Read our Blogs](https://techcommunity.microsoft.com/t5/windows-admin-center-blog/bg-p/Windows-Admin-Center-Blog)

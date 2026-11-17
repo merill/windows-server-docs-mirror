@@ -12,7 +12,7 @@ description: Explore distributed AI inference on Windows Server. Compare runtime
 ms.topic: landing-page
 author: robinharwood
 ms.author: roharwoo
-ms.date: 2026-09-25T00:00:00.0000000Z
+ms.date: 2026-11-05T00:00:00.0000000Z
 ms.service: windows-server
 ai-usage: ai-assisted
 locale: en-us
@@ -42,15 +42,15 @@ platformId: 14476ec9-2a0f-6c0f-6b86-50a60cc70170
 
 Explore distributed AI inference on Windows Server. Compare runtimes, connect clients to endpoints, build with SQL Server, and plan GPU infrastructure.
 
-## Understand AI inference approaches
+## Plan and deploy AI inference
+
+### How-To Guide
+
+- [Deploy a token factory on Windows Server](deploy-token-factory)
 
 ### Overview
 
 - [Plan distributed AI inference on Windows Server](local-ai-inference)
-
-### Concept
-
-- [What is Windows ML?](/en-us/windows/ai/new-windows-ml/overview?context=/windows-server/context/windows-server-ai)
 
 ## Plan GPU acceleration in Windows Server
 
@@ -62,7 +62,15 @@ Explore distributed AI inference on Windows Server. Compare runtimes, connect cl
 
 ### Get started
 
-- [Get started with Foundry Local for on-device inference](/en-us/azure/foundry-local/get-started?context=/windows-server/context/windows-server-ai)
+- [Get started with the Foundry Local SDK](/en-us/azure/foundry-local/get-started?context=/windows-server/context/windows-server-ai)
+
+### How-To Guide
+
+- [Use the Foundry Local CLI](/en-us/azure/foundry-local/how-to/how-to-use-foundry-local-cli?context=/windows-server/context/windows-server-ai)
+
+### Concept
+
+- [What is Windows ML?](/en-us/windows/ai/new-windows-ml/overview?context=/windows-server/context/windows-server-ai)
 
 ## Connect apps and tools to model endpoints
 

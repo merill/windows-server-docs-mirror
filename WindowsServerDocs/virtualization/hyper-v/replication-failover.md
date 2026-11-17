@@ -89,10 +89,6 @@ You need to run a failover operation for each VM. You can only run one failover 
 Select the relevant tab for instructions.
 
 # [Windows Admin Center - Virtualization mode](#tab/windows-admin-center)
-Important
-
-Configuring Hyper-V Replica using *Windows Admin Center - Virtualization mode* is currently in PREVIEW. This information relates to a prerelease product that may be substantially modified before it's released. Microsoft makes no warranties, expressed or implied, with respect to the information provided here.
-
 For more information about Windows Admin Center - Virtualization mode, see [Windows Admin Center - Virtualization mode overview](../../manage/windows-admin-center/virtualization-mode-overview).
 
 Failing over a virtual machine by using Windows Admin Center - Virtualization mode depends on the type of failover you want to perform.

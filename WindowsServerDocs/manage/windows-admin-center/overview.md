@@ -10,11 +10,12 @@ ms.service: windows-server
 ms.subservice: windows-admin-center
 ms.update-cycle: 365-days
 feedback_product_url: https://aka.ms/wacfeedback
-description: Learn how to manage Windows Server using Windows Admin Center (Project Honolulu).
+description: Learn about Windows Admin Center and choose between Administration Mode for general administration and Virtualization Mode for virtualization infrastructure.
 ms.topic: overview
 author: davannaw-msft
 ms.author: dawhite
 ms.date: 2024-08-22T00:00:00.0000000Z
+ai-usage: ai-assisted
 locale: en-us
 document_id: bd448b3c-456e-bd11-efb5-278296801fc0
 document_version_independent_id: f82f9906-69aa-fc5b-e479-84b42b6c716f
@@ -34,27 +35,36 @@ source_path: WindowsServerDocs/manage/windows-admin-center/overview.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
-- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
-- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 platformId: a3fb5794-c7ad-b0fb-dad4-28a01a432ab3
 ---
 
 # Windows Admin Center overview | Microsoft Learn
 
-Windows Admin Center is a remote management tool for Windows Server running anywhere—physical, virtual, on-premises, in Azure, or in a hosted environment—at no extra cost.
+Windows Admin Center is a browser-based management product for Windows Server infrastructure running in physical, virtual, on-premises, Azure, or hosted environments at no extra cost. It provides two management experiences: Administration Mode and Virtualization Mode.
 
 To find out what's new, see [Release history](support/release-history).
 
+## Choose a Windows Admin Center experience
+
+Administration Mode and Virtualization Mode are part of the same Windows Admin Center product, but they serve different management scenarios. They're independent experiences that you install on separate systems, not modes that you switch between in a single deployment.
+
+| Experience | Choose this experience when you need to |
+| --- | --- |
+| **Administration Mode** | Perform general administration and troubleshooting for individual servers and clusters. This experience provides tools for areas such as events, certificates, devices, networking, registry, roles and features, storage, and updates. |
+| **Virtualization Mode** | Centrally manage virtualization infrastructure across large-scale, distributed Hyper-V environments. This experience provides resource-focused views and parallel operations for hosts, clusters, virtual machines, storage, and networking. |
+
+You can use both experiences in the same environment. To compare their architecture, scale, and capabilities, see [What is Windows Admin Center Virtualization Mode?](virtualization-mode-overview#operational-modes)
+
 ## Download now
 
-**Download [Windows Admin Center](https://www.microsoft.com/evalcenter/download-windows-admin-center)** from the Microsoft Evaluation Center.
+**Download**[Windows Admin Center](https://www.microsoft.com/evalcenter/download-windows-admin-center) from the Microsoft Evaluation Center.
 
-For installation help, see [Install](deploy/install). For tips on getting started with Windows Admin Center, see [Get started](use/get-started).
+For help installing Administration Mode, see [Install Windows Admin Center](deploy/install). For help installing Virtualization Mode, see [Install Windows Admin Center Virtualization Mode](install-virtualization-mode). For tips on getting started, see [Get started](use/get-started).
 
-You can update non-preview versions of Windows Admin Center by using Microsoft Update or by manually downloading and installing Windows Admin Center. Each non-preview version of Windows Admin Center is supported until 30 days after the next non-preview version is released. See our [support policy](support/) for more info.
+You can update non-preview versions of Windows Admin Center by using Microsoft Update or by manually downloading and installing Windows Admin Center. Each non-preview version is supported until 30 days after the next non-preview version is released. For more information, see the [Windows Admin Center support policy](support/).
 
 ## Windows Admin Center scenarios
 
@@ -62,19 +72,17 @@ Here are a few things you can use Windows Admin Center for:
 
 - **Simplify server management**: Manage your servers and clusters with modernized versions of familiar tools such as Server Manager. Install in under five minutes and manage servers in your environment immediately, no extra configuration required. For details, see [What is Windows Admin Center?](understand/what-is)
 - **Work with hybrid solutions**: Integration with Azure helps you optionally connect your on-premises servers with relevant cloud services. For details, see [Azure hybrid services](azure/).
-- **Streamline hyperconverged management**: Streamline management of Windows Server hyperconverged clusters. Use simplified workloads to create and manage VMs, Storage Spaces Direct volumes, Software-Defined Networking, and more. For more information, see [Manage HCI](use/manage-hyper-converged). For Azure Local management, see the [Azure Local documentation](/en-us/azure/azure-local/overview).
+- **Manage virtualization infrastructure**: Use Administration Mode to deploy and manage Windows Server hyperconverged clusters. For more information, see [Manage HCI](use/manage-hyper-converged). Use Virtualization Mode to centrally manage large-scale, distributed Hyper-V resources. For Azure Local management, see the [Azure Local documentation](/en-us/azure/azure-local/overview).
 
 Here's a video to give you an overview, followed by a poster giving more details:
 
 [![Diagram that gives an overview of the Windows Admin Center.](media/wac1910-poster-thumb-small.png)](media/wac1910-poster-thumb-small.png#lightbox)
 
-[Download the PDF of this poster](https://github.com/MicrosoftDocs/windowsserverdocs/raw/main/WindowsServerDocs/manage/windows-admin-center/media/WindowsAdminCenter1910Poster.pdf)
-
-## Contents at a glance
+## Windows Admin Center documentation at a glance
 
 | Understand | Plan |
 | --- | --- |
-| - [What is Windows Admin Center?](understand/what-is) - [Frequently asked questions](understand/faq) - [Case studies](understand/case-studies) - [Related management products](understand/related-management) | - [What type of installation is right for you?](plan/installation-options) - [User access options](plan/user-access-options) |
+| - [What is Windows Admin Center?](understand/what-is) - [What is Windows Admin Center Virtualization Mode?](virtualization-mode-overview) - [Frequently asked questions](understand/faq) - [Case studies](understand/case-studies) - [Related management products](understand/related-management) | - [What type of installation is right for you?](plan/installation-options) - [User access options](plan/user-access-options) |
 
 | Deploy | Configure |
 | --- | --- |
@@ -90,7 +98,7 @@ Here's a video to give you an overview, followed by a poster giving more details
 
 | Extend |
 | --- |
-| - [Overview of extensions](extend/extensibility-overview)- [Understanding extensions](extend/understand-extensions)- [Develop an extension](extend/developing-extensions)- [Guides](extend/publish-extensions)- [Publishing extensions](extend/publish-extensions) |
+| - [Overview of extensions](extend/extensibility-overview)- [Understanding extensions](extend/understand-extensions)- [Develop an extension](extend/developing-extensions)- [Guides](extend/guides)- [Publishing extensions](extend/publish-extensions) |
 
 ## See how customers benefit from Windows Admin Center
 
@@ -109,13 +117,13 @@ Here's a video to give you an overview, followed by a poster giving more details
 
 To read more about companies using Windows Admin Center in their production environments, see [Windows Admin Center Case Studies](understand/case-studies).
 
-## Related products
+## Related Windows Admin Center management products
 
 Windows Admin Center is designed for managing a single server or cluster. It complements but doesn't replace existing Microsoft monitoring and management solutions, such as Remote Server Administration Tools (RSAT), System Center, Intune, or Azure Stack.
 
 To learn how Windows Admin Center complements other Microsoft management solutions, see [Windows Admin Center and related management solutions from Microsoft](understand/related-management).
 
-## Stay updated
+## Stay updated on Windows Admin Center
 
 - [Follow us on X (formerly Twitter)](https://twitter.com/servermgmt)
-- [Read our blogs](https://techcommunity.microsoft.com/t5/windows-admin-center-blog/bg-p/Windows-Admin-Center-Blog)
+- [Windows Admin Center blog](https://aka.ms/wacblog)

@@ -35,9 +35,11 @@ source_path: WindowsServerDocs/virtualization/hyper-v/configure-replication-sing
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/5cf46315-b33f-4e99-8224-a1592697eff9
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/715d24c3-3683-4219-82c5-1e3c813fb7fc
 platformId: 2bbdd4d0-40de-e1ef-cf99-9d8cbdc7cb30
 ---
 
@@ -76,10 +78,6 @@ To ensure that you can fail a VM back to the original primary host or cluster af
 Use Windows Admin Center - Virtualization mode, Hyper-V Manager, or PowerShell to enable and configure Hyper-V Replica. Select the relevant tab for instructions.
 
 # [Windows Admin Center - Virtualization mode](#tab/windows-admin-center)
-Important
-
-Configuring Hyper-V Replica by using *Windows Admin Center - Virtualization mode* is currently in PREVIEW. This information relates to a prerelease product that may be substantially modified before it's released. Microsoft makes no warranties, expressed or implied, with respect to the information provided here.
-
 For more information about Windows Admin Center - Virtualization mode, see [Windows Admin Center - Virtualization mode overview](../../manage/windows-admin-center/virtualization-mode-overview).
 
 To enable and configure Hyper-V Replica by using Windows Admin Center - Virtualization mode:

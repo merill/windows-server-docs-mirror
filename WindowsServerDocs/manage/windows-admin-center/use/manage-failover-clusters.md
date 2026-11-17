@@ -15,6 +15,7 @@ ms.topic: how-to
 author: robinharwood
 ms.author: roharwoo
 ms.date: 2022-02-28T00:00:00.0000000Z
+ai-usage: ai-assisted
 locale: en-us
 document_id: 7a131da0-9b7e-c9e1-3536-9c668317585c
 document_version_independent_id: 2e572be9-9f47-999b-4c4e-d9801d900b55
@@ -50,6 +51,8 @@ New to Windows Admin Center? [Download or learn more about Windows Admin Center]
 
 You can manage failover cluster nodes as individual servers by using [Server Manager](manage-servers) to add them in Windows Admin Center. But you can also add them as failover clusters to view and manage cluster resources, storage, networks, nodes, roles, virtual machines, and virtual switches.
 
+This article applies only to the failover cluster connection experience in Windows Admin Center Administration Mode. Windows Admin Center Virtualization Mode doesn't use failover cluster connections to manage virtualization clusters. Instead, manage virtualization clusters through the virtualization fabric and resource hierarchy. For more information, see [What is Windows Admin Center Virtualization Mode?](../virtualization-mode-overview)
+
 ![Screenshot of the list of cluster resources in Windows Admin Center.](../media/manage-failover-clusters/fcm-overview.png)
 
 ## Add a failover cluster to Windows Admin Center
@@ -66,7 +69,7 @@ Note
 
 You can also manage hyper-converged clusters by adding the cluster as a [hyper-converged cluster connection](manage-hyper-converged) in Windows Admin Center.
 
-## Tools
+## Tools for managing failover clusters
 
 The following areas of Windows Admin Center represent tools that are available for failover cluster connections:
 

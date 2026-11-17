@@ -1,6 +1,6 @@
 ---
 layout: Conceptual
-title: Manage Virtual Machines with Windows Admin Center | Microsoft Learn
+title: Manage VMs in Windows Admin Center Administration Mode | Microsoft Learn
 canonicalUrl: https://learn.microsoft.com/en-us/windows-server/manage/windows-admin-center/use/manage-virtual-machines
 breadcrumb_path: /windows-server/breadcrumbs/toc.json
 uhfHeaderId: MSDocsHeader-WindowsServer
@@ -10,12 +10,13 @@ ms.service: windows-server
 ms.subservice: windows-admin-center
 ms.update-cycle: 365-days
 feedback_product_url: https://aka.ms/wacfeedback
-description: Lean how to manage Hyper-V hosts and virtual machines by using Windows Admin Center.
+description: Learn how to manage Hyper-V hosts and virtual machines in Windows Admin Center Administration Mode, including VM creation, configuration, and migration.
 ms.topic: how-to
 author: robinharwood
 ms.author: roharwoo
 ms.date: 2022-01-28T00:00:00.0000000Z
 ms.custom: sfi-image-nochange
+ai-usage: ai-assisted
 locale: en-us
 document_id: 9cb6f66d-7d5f-80f8-ea84-94adf4a6db89
 document_version_independent_id: 389c6a28-ec23-c311-a166-554931e91fce
@@ -34,12 +35,18 @@ item_type: Content
 source_path: WindowsServerDocs/manage/windows-admin-center/use/manage-virtual-machines.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/2ed91286-6cf7-4b83-810d-75d0ee3b09dd
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
+- https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/6735bd7e-4f7b-457d-b58c-29e6f0198677
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
+- https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
 platformId: 7679aa1c-bb27-2f50-f0d0-d52cb111d996
 ---
 
-# Manage Virtual Machines with Windows Admin Center | Microsoft Learn
+# Manage VMs in Windows Admin Center Administration Mode | Microsoft Learn
+
+If you installed Windows Admin Center in Virtualization Mode, see [Manage virtual machines in Windows Admin Center Virtualization Mode](../manage-virtualization-mode-virtual-machines). Use the article that matches the Windows Admin Center mode in your environment.
 
 The Virtual Machines tool in Windows Admin Center is available in [server](manage-servers), [failover cluster](manage-failover-clusters), or [hyper-converged cluster](manage-hyper-converged) connections if the Hyper-V role is enabled on the server or cluster. You can use the Virtual Machines tool to manage Hyper-V hosts running Windows Server, either installed with Desktop Experience or installed as Server Core. Hyper-V Server 2016 and 2019 are also supported.
 

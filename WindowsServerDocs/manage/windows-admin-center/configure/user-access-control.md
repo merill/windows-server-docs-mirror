@@ -15,6 +15,7 @@ ms.topic: how-to
 author: robinharwood
 ms.author: roharwoo
 ms.date: 2025-06-26T00:00:00.0000000Z
+ai-usage: ai-assisted
 locale: en-us
 document_id: bb766b65-907c-1c8e-4af2-fc312a8572ad
 document_version_independent_id: a07c9822-76ae-d3cf-5e82-0b56e180d91d
@@ -32,23 +33,25 @@ monikers: []
 item_type: Content
 source_path: WindowsServerDocs/manage/windows-admin-center/configure/user-access-control.md
 cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/57eae307-c3a1-4cac-b645-1a899934bac8
 spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 - https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ee561821-1ac7-45a8-9409-6ba5eb7a5b97
 platformId: 2c5c91fb-f2a6-3dac-7927-d7ee75baaba1
 ---
 
 # Configuring user access control and permissions | Microsoft Learn
 
-If you haven't already, familiarize yourself with the [user access control options in Windows Admin Center.](../plan/user-access-options)
+This article explains how to configure user access control and permissions for a Windows Admin Center gateway. For background, see [user access control options in Windows Admin Center](../plan/user-access-options).
 
-Note
+These procedures apply only to Windows Admin Center Administration Mode and don't configure access for Virtualization Mode.
 
-Group based access in Windows Admin Center is not supported in workgroup environments or across non-trusted domains.
+For Virtualization Mode, access the gateway site with an account that has the **Gateway Administrator** role or equivalent permissions. Virtual machine (VM) workflows also require local **Administrator** rights on each managed Hyper-V host. For more information, see [Authentication and access control in Windows Admin Center Virtualization Mode](../virtualization-mode-authentication-access-control).
+
+Windows Admin Center doesn't support group-based access in workgroup environments or across non-trusted domains.
 
 ## Gateway access role definitions
 
@@ -113,7 +116,7 @@ Users and administrators can view their currently logged-in account and as well 
 
 ### Configuring Microsoft Entra authentication for Windows Admin Center
 
-[To set up Microsoft Entra authentication, you must first register your gateway with Azure](../azure/azure-integration) (you only need to do this once for your Windows Admin Center gateway). This step creates a Microsoft Entra application from which you can manage gateway user and gateway administrator access.
+To set up Microsoft Entra authentication, first [register your gateway with Azure](../azure/azure-integration) (you only need to do this once for your Windows Admin Center gateway). This step creates a Microsoft Entra application from which you can manage gateway user and gateway administrator access.
 
 If you want to give specific Microsoft Entra users or groups gateway user or gateway administrator access to the Windows Admin Center service, you must do the following:
 
@@ -133,7 +136,7 @@ Using the **Azure** tab of Windows Admin Center general settings, users and admi
 
 One of the benefits of using Microsoft Entra ID as an additional layer of security to control access to the Windows Admin Center gateway is that you can leverage Microsoft Entra ID's powerful security features like conditional access and multi-factor authentication.
 
-[Learn more about configuring conditional access with Microsoft Entra ID.](/en-us/azure/active-directory/active-directory-conditional-access-azure-portal-get-started)
+For more information, see [configure Conditional Access with Microsoft Entra ID](/en-us/azure/active-directory/active-directory-conditional-access-azure-portal-get-started).
 
 ## Configure single sign-on
 
@@ -155,7 +158,7 @@ Set-ADComputer -Identity (Get-ADComputer node01) -PrincipalsAllowedToDelegateToA
 
 ## Role-based access control (RBAC)
 
-Role-based access control enables you to provide users with limited access to the machine instead of making them full local administrators. [Read more about role-based access control and the available roles.](../plan/user-access-options#role-based-access-control)
+Role-based access control enables you to provide users with limited access to the machine instead of making them full local administrators. For more information, see [role-based access control and available roles](../plan/user-access-options#role-based-access-control).
 
 Setting up RBAC consists of two steps: enabling support on the target computer(s) and assigning users to the relevant roles.
 

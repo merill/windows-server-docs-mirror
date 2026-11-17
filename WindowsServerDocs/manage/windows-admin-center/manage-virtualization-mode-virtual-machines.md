@@ -33,12 +33,12 @@ monikers: []
 item_type: Content
 source_path: WindowsServerDocs/manage/windows-admin-center/manage-virtualization-mode-virtual-machines.md
 cmProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/2ed91286-6cf7-4b83-810d-75d0ee3b09dd
 - https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/2ed91286-6cf7-4b83-810d-75d0ee3b09dd
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
 spProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/6735bd7e-4f7b-457d-b58c-29e6f0198677
 - https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/6735bd7e-4f7b-457d-b58c-29e6f0198677
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
 platformId: 96090b61-5e22-3ee1-19e9-feb920c3ac1d
 ---
@@ -57,7 +57,7 @@ Virtualization Mode focuses on virtualization infrastructure and presents resour
 
 Before you can add resources in Windows Admin Center Virtualization Mode, ensure the following prerequisites are met:
 
-- At least one Resource Group exists and contains one or more Hyper-V hosts added with the **Compute** profile. For more information about adding resources, see [Add resources in Windows Admin Center Virtualization Mode](add-virtualization-mode-resources).
+- At least one Resource Group exists and contains one or more Hyper-V hosts added with the **Compute** profile. For more information about adding resources, see [Add compute resources in Windows Admin Center Virtualization Mode](add-virtualization-mode-resources).
 - You're accessing the Virtualization Mode gateway site using an account that has the *Gateway Administrator* role or equivalent permissions and have local Administrator rights on each Hyper-V host.
 - To create a virtual machine, use any guest operating system that your Hyper-V host supports. For more information about the supported guest operating systems, see [Supported Windows guest operating systems for Hyper-V](../../virtualization/hyper-v/supported-windows-guest-operating-systems-for-hyper-v-on-windows) and [Supported Linux and FreeBSD virtual machines](../../virtualization/hyper-v/supported-linux-and-freebsd-virtual-machines-for-hyper-v-on-windows).
 

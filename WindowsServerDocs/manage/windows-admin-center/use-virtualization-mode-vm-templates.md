@@ -53,8 +53,8 @@ Windows Admin Center Virtualization Mode is currently in PREVIEW. This informati
 
 ## Prerequisites
 
-- Windows Admin Center Virtualization Mode installed and available. For more information, see [Install Windows Admin Center Virtualization Mode](install-virtualization-mode).
-- At least one resource group that contains one or more Hyper-V hosts that you added by using the **Compute** profile. For more information, see [Add resources in Windows Admin Center Virtualization Mode](add-virtualization-mode-resources).
+- Windows Admin Center Virtualization Mode installed and available. For more information, see [Install Windows Admin Center Virtualization Mode](deploy/install).
+- At least one resource group that contains one or more Hyper-V hosts that you added by using the **Compute** profile. For more information, see [Add compute resources in Windows Admin Center Virtualization Mode](add-virtualization-mode-resources).
 - An account with the *Gateway Administrator* role or equivalent permissions and local Administrator rights on each Hyper-V host.
 - At least one existing VM on a managed Hyper-V host. The VM must be shut down before you can convert it to a template. For more information about creating VMs, see [Manage virtual machines in Windows Admin Center Virtualization Mode](manage-virtualization-mode-virtual-machines).
 
