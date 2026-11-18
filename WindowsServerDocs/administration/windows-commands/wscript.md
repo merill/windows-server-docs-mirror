@@ -13,7 +13,8 @@ description: Reference article for the wscript command; wscript provides an envi
 ms.topic: reference
 ms.author: roharwoo
 author: robinharwood
-ms.date: 2023-04-01T00:00:00.0000000Z
+ms.date: 2026-11-18T00:00:00.0000000Z
+ai-usage: ai-assisted
 locale: en-us
 document_id: b6d64a4e-816e-d545-6c37-c2b1f24174ef
 document_version_independent_id: c828776b-914b-31e7-158c-3bf672b496f8
@@ -32,12 +33,12 @@ monikers: []
 item_type: Content
 source_path: WindowsServerDocs/administration/windows-commands/wscript.md
 cmProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/fc3f72c2-fb6f-4cea-95ee-b444e52254ee
+- https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/c6f99e62-1cf6-4b71-af9b-649b05f80cce
 spProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/f12cf087-582d-48ac-a085-0c19adf1e391
+- https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/3f56b378-07a9-4fa1-afe8-9889fdc77628
 platformId: d2353621-3690-31b1-7e2a-146f5a94c3dd
 ---
@@ -47,6 +48,10 @@ platformId: d2353621-3690-31b1-7e2a-146f5a94c3dd
 Applies to: Windows Server (All supported versions)
 
 Windows Script Host provides an environment in which users can execute scripts in various languages that use various object models to perform tasks.
+
+Windows Server 2025 includes VBScript as a preinstalled Feature on Demand. Windows Server 2028 Preview removes VBScript, so `wscript` can't run scripts that require the VBScript engine on that release. This change applies to VBScript only; it doesn't remove Windows Script Host or JScript.
+
+Before you move workloads that use VBScript to Windows Server 2028, migrate automation scripts to PowerShell and web content that uses VBScript to JavaScript. Test the migrated scripts and deployment processes in a nonproduction environment before rollout. For migration guidance, see the [VBScript-to-Windows PowerShell Conversion Guide](/en-us/previous-versions/windows/it-pro/windows-powershell-1.0/ee221101%28v=msdn.10%29). For release-specific availability, see [Features removed or no longer developed in Windows Server](../../get-started/removed-deprecated-features-windows-server).
 
 ## Syntax
 

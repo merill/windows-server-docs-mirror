@@ -13,7 +13,8 @@ description: Reference article for the cscript command, which starts a script so
 ms.topic: reference
 ms.author: roharwoo
 author: robinharwood
-ms.date: 2017-10-16T00:00:00.0000000Z
+ms.date: 2026-11-18T00:00:00.0000000Z
+ai-usage: ai-assisted
 locale: en-us
 document_id: 1411dbfd-80a5-af91-704a-0b69f341a84e
 document_version_independent_id: 6d6547d9-f200-6736-2b89-f4719f176c73
@@ -34,17 +35,21 @@ source_path: WindowsServerDocs/administration/windows-commands/cscript.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/fc3f72c2-fb6f-4cea-95ee-b444e52254ee
-- https://authoring-docs-microsoft.poolparty.biz/devrel/86a4b315-a9f1-4577-b985-6fb0e0e67420
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/5cf46315-b33f-4e99-8224-a1592697eff9
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/c783a8fb-cf36-41ad-90c6-0692a0540484
-- https://authoring-docs-microsoft.poolparty.biz/devrel/96ac410d-d052-4707-8007-df31dd0fe041
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/f12cf087-582d-48ac-a085-0c19adf1e391
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/715d24c3-3683-4219-82c5-1e3c813fb7fc
 platformId: bd3ecc2f-7d4e-61b9-a5ea-1f5f811b0cb6
 ---
 
 # cscript | Microsoft Learn
 
 Starts a script to run in a command-line environment.
+
+Windows Server 2025 includes VBScript as a preinstalled Feature on Demand. Windows Server 2028 Preview removes VBScript, so `cscript` can't run scripts that require the VBScript engine on that release. This change applies to VBScript only; it doesn't remove Windows Script Host or JScript.
+
+Migrate VBScript automation to PowerShell. For migration guidance, see the [VBScript-to-Windows PowerShell Conversion Guide](/en-us/previous-versions/windows/it-pro/windows-powershell-1.0/ee221101%28v=msdn.10%29). For release-specific availability, see [Features removed or no longer developed in Windows Server](../../get-started/removed-deprecated-features-windows-server).
 
 Important
 

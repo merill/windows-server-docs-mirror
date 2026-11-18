@@ -14,6 +14,7 @@ ms.topic: concept-article
 ms.author: roharwoo
 author: robinharwood
 ms.date: 2025-06-18T00:00:00.0000000Z
+ai-usage: ai-assisted
 locale: en-us
 document_id: 90b81010-acd8-231f-852b-7a9edfa4bd50
 document_version_independent_id: 871c5a14-9f83-71b6-67b8-8ca33eb91651
@@ -81,6 +82,7 @@ The following table shows which 64-bit versions of Windows you can use as a gues
 
 | 64-bit versions of Windows | Generation 1 | Generation 2 |
 | --- | --- | --- |
+| Windows Server 2028 (Preview) | ✖ | ✔ |
 | Windows Server 2025 | ✔ | ✔ |
 | Windows Server 2022 | ✔ | ✔ |
 | Windows Server 2019 | ✔ | ✔ |
@@ -89,6 +91,8 @@ The following table shows which 64-bit versions of Windows you can use as a gues
 | Windows Server 2012 | ✔ | ✔ |
 | Windows 11 | ✖ | ✔ |
 | Windows 10 | ✔ | ✔ |
+
+For Windows Server 2028 (Preview), use a generation 2 virtual machine (VM). Current preview builds might not enforce the generation 2 requirement. Generation 1 support for earlier guest operating systems is unchanged.
 
 The following table shows which 32-bit versions of Windows you can use as a guest operating system for generation 1 and generation 2 virtual machines.
 
@@ -231,7 +235,7 @@ Virtual hard drives created on generation 1 and generation 2 VMs can be uploaded
 
 ### Use UEFI firmware
 
-- Secure Boot or UEFI firmware isn't required on the physical Hyper-V host. For generation 2 VMs, Hyper-V provides virtual firmware to virtual machines that is independent of what's on the Hyper-V host.
+- Physical Hyper-V hosts that run Windows Server 2025 or earlier don't require Secure Boot or UEFI firmware. For physical Hyper-V hosts that run Windows Server 2028 (Preview), plan for UEFI firmware. For generation 2 VMs, Hyper-V provides virtual firmware that is independent of the physical Hyper-V host's firmware.
 - UEFI firmware in a generation 2 virtual machine doesn't support setup mode for Secure Boot.
 - We don't support running a UEFI shell or other UEFI applications in a generation 2 virtual machine. Using a non-Microsoft UEFI shell or UEFI applications is technically possible if they're compiled directly from the sources. If these applications aren't digitally signed correctly, you must disable Secure Boot for the virtual machine.
 
