@@ -45,7 +45,9 @@ platformId: dd5cef5d-2ff5-fef7-e834-67ad18fc3ac4
 
 # Use PowerShell to manage Windows Admin Center settings | Microsoft Learn
 
-If you have a large organization with multiple Windows Admin Center servers, you can use PowerShell to configure the list of connections and extensions on multiple servers at a time. The connection and extension commands in this article configure Windows Admin Center in Administration Mode. They aren't general automation guidance for Windows Admin Center in Virtualization Mode.
+Gateway administrators can use Windows Admin Center PowerShell modules to manage connection lists and extensions across multiple Windows Admin Center servers running in Administration Mode. This approach helps you apply consistent configuration without updating each server individually. These commands don't provide general automation for Windows Admin Center in Virtualization Mode.
+
+In this article, you use PowerShell to import and export connections and tags, and to manage extension feeds and packages.
 
 ## Import or export Windows Admin Center connections and tags with PowerShell
 

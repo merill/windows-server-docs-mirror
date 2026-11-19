@@ -35,19 +35,17 @@ source_path: WindowsServerDocs/manage/windows-admin-center/understand/what-is.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/fc3f72c2-fb6f-4cea-95ee-b444e52254ee
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/f12cf087-582d-48ac-a085-0c19adf1e391
 platformId: 3e546a01-9f72-f439-20a4-c5e23bb1f56a
 ---
 
 # What is Windows Admin Center | Microsoft Learn
 
-You deploy Windows Admin Center locally as a browser-based management platform with two modes that share a common platform core. **Administration Mode** provides general management for Windows clients, servers, and clusters. **Virtualization Mode** provides centralized management for Hyper-V hosts, clusters, storage, and networking at scale. Install the modes separately because they use different management architectures. For more information about Virtualization Mode, see [What is Windows Admin Center Virtualization Mode?](../virtualization-mode-overview)
+Windows Admin Center is a browser-based platform for managing Windows clients, servers, clusters, and virtualization infrastructure. It gives you a unified management experience for systems across on-premises, disconnected, and hybrid environments while complementing tools such as System Center.
 
-Administration Mode lets you manage systems without connecting to the cloud and is useful for servers on private networks that aren't connected to the internet. Administration Mode modernizes "in-box" management tools such as Server Manager and Microsoft Management Console (MMC). It complements System Center; it doesn't replace it.
+Windows Admin Center provides two modes that share a platform core: **Administration Mode** for general system management and **Virtualization Mode** for centralized management of Hyper-V infrastructure at scale. You install each mode separately. This article explains how the modes work, where each mode fits, and how Windows Admin Center can improve your management environment.
 
 ![Diagram of Windows Admin Center working with other solutions](../media/wac-complements.png)
 
@@ -59,7 +57,8 @@ After you publish the Administration Mode gateway to DNS and configure the corre
 
 The **Administration Mode gateway** uses a .NET 10 backend for improved performance, security, and cryptography. It also includes support for HTTP/2, reducing latency and enhancing the responsiveness of Windows Admin Center.
 
-![Diagram of the Windows Admin Center Administration Mode architecture.](../media/architecture.png)
+[!\[Diagram of the Windows Admin Center Administration Mode gateway connecting a browser to managed nodes.\](../media/architecture.png)
+ Diagram of an on-premises Windows Admin Center Administration Mode deployment. A client connects from a modern browser to the Windows Admin Center web server and gateway over HTTPS. The gateway connects to managed nodes by using PowerShell and Windows Management Instrumentation (WMI) over Windows Remote Management (WinRM), and the managed nodes require no agent installation. The deployment doesn't require an internet connection. To access the gateway over the internet, publish it to DNS and configure the firewall. The diagram labels the installer as about 60 MB and says it installs in minutes.](../media/architecture.png#lightbox)
 
 ### Administration Mode architecture
 

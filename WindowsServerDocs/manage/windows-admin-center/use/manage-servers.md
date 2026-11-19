@@ -36,11 +36,11 @@ source_path: WindowsServerDocs/manage/windows-admin-center/use/manage-servers.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
 - https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
-- https://authoring-docs-microsoft.poolparty.biz/devrel/aebdc4a3-c54b-4eea-94e3-663d5e166f57
+- https://authoring-docs-microsoft.poolparty.biz/devrel/07bb3e10-d135-43ff-bc8b-360497cb39fa
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
 - https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
-- https://authoring-docs-microsoft.poolparty.biz/devrel/1baec8e6-ab38-4b56-bb59-f6282d94f311
+- https://authoring-docs-microsoft.poolparty.biz/devrel/12e559b9-eaf6-4aee-9af7-62334e15f863
 platformId: 2197c389-f795-cc84-15c6-4de2c870ac8d
 ---
 
@@ -50,9 +50,9 @@ Tip
 
 New to Windows Admin Center? [Download or learn more about Windows Admin Center](../overview).
 
-Windows Admin Center Administration Mode provides the Server Manager experience and tools described in this article. You can add individual servers running Windows Server to Administration Mode and manage them by using a set of tools.
+Windows Admin Center Administration Mode provides a browser-based Server Manager experience for managing individual servers running Windows Server. It gives you one place to connect to servers and perform common administration tasks without relying on multiple management tools.
 
-If you're using Virtualization Mode, add servers as compute resources instead. For more information, see [Add resources in Windows Admin Center Virtualization Mode](../add-virtualization-mode-resources#add-resources).
+In this article, you add a server in Administration Mode and learn which tools you can use to monitor, configure, and maintain it. If you use Virtualization Mode, add servers as compute resources instead. For more information, see [Add resources in Windows Admin Center Virtualization Mode](../add-virtualization-mode-resources#add-compute-resources).
 
 ## Add a server in Administration Mode
 

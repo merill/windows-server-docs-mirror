@@ -43,9 +43,9 @@ platformId: ba28f88a-b085-32d8-147f-53dd8c6eb894
 
 # Windows Admin Center: Choose an Installation | Microsoft Learn
 
-Windows Admin Center provides two management experiences that you install independently: Administration Mode for general server and cluster management, and Virtualization Mode for virtualization fabric management at scale. This article helps you choose an experience and, if you choose Administration Mode, select an installation topology.
+Windows Admin Center is a browser-based management tool with two experiences that you install independently: Administration Mode for general server and cluster management, and Virtualization Mode for virtualization fabric management at scale. Choosing the right experience and deployment model helps you meet the management and availability needs of your environment.
 
-The installation topologies and supported operating systems in this article apply to Administration Mode. To install Windows Admin Center on a virtual machine (VM) in Azure, see [Deploy Windows Admin Center in Azure](../azure/deploy-wac-in-azure).
+This article compares the two experiences so you can choose one. If you choose Administration Mode, it also helps you select an installation topology and supported operating system. These topologies and operating system requirements apply only to Administration Mode. Deployments on Azure virtual machines (VMs) use a separate installation process.
 
 ## Choose a management experience
 
@@ -60,20 +60,22 @@ Important
 
 You can't install Administration Mode and Virtualization Mode on the same system.
 
-Virtualization Mode doesn't replace Administration Mode for general server administration. Install each mode on a separate system to use both experiences in the same environment. For more information about the capabilities and architecture of each experience, see [What is Windows Admin Center Virtualization Mode?](../virtualization-mode-overview) For Virtualization Mode requirements and installation guidance, see [Install Windows Admin Center Virtualization Mode](../install-virtualization-mode).
+Virtualization Mode doesn't replace Administration Mode for general server administration. Install each mode on a separate system to use both experiences in the same environment. For more information about the capabilities and architecture of each experience, see [What is Windows Admin Center Virtualization Mode?](../virtualization-mode-overview) For Virtualization Mode requirements and installation guidance, see [Install Windows Admin Center Virtualization Mode](../deploy/install).
 
 ## Administration Mode installation topologies
 
 For Administration Mode, choose one of the following installation topologies.
 
-![Diagram that shows the four Administration Mode installation topologies.](../media/deployment-options/install-options.png)
+![Diagram that shows local client, gateway server, managed server, and failover cluster installation topologies.](../media/deployment-options/install-options.png)
+
+ The diagram shows four Administration Mode installation topologies. In the local client topology, you install Windows Admin Center on your local personal computer (PC) for quick access and testing, and the PC connects to managed servers. Gateway server provides a central access point that multiple administrators reach through a browser; the gateway then connects to managed servers. In the managed server topology, you install Windows Admin Center directly on the server that you connect to and manage. In the failover cluster topology, you install Windows Admin Center on a cluster to provide a highly available, resilient management service. Administrators use the failover cluster gateway to manage standalone servers and other failover clusters.
 
 | Topology | Install location | Choose this topology when |
 | --- | --- | --- |
-| Local client | [Install Windows Admin Center](../deploy/install) on a local Windows 11 client that has connectivity to the managed servers. | One administrator needs a quick setup for testing, ad hoc work, or small-scale management. |
-| Gateway server | [Install Windows Admin Center](../deploy/install) on a designated gateway server that client browsers can reach. | Multiple administrators need shared access or you manage a larger environment. |
-| Managed server | [Install Windows Admin Center](../deploy/install) directly on a managed server. | You need to remotely manage that server or a cluster in which the server is a member node, such as in a distributed environment. |
-| Failover cluster | Deploy high availability for the gateway service on a failover cluster. | A production environment requires a highly available and resilient management service. |
+| **Local client** | [Install Windows Admin Center](../deploy/install) on a local Windows 11 client that has connectivity to the managed servers. | One administrator needs a quick setup for testing, ad hoc work, or small-scale management. |
+| **Gateway server** | [Install Windows Admin Center](../deploy/install) on a designated gateway server that client browsers can reach. | Multiple administrators need shared access or you manage a larger environment. |
+| **Managed server** | [Install Windows Admin Center](../deploy/install) directly on a managed server. | You need to remotely manage that server or a cluster in which the server is a member node, such as in a distributed environment. |
+| **Failover cluster** | Deploy high availability for the gateway service on a failover cluster. | A production environment requires a highly available and resilient management service. |
 
 We don't recommend using Administration Mode for local management of the same server on which it's installed. To manage a server, connect to it remotely from Windows Admin Center installed on a management PC or another server.
 

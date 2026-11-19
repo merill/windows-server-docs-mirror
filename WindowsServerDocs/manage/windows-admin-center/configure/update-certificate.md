@@ -43,11 +43,11 @@ platformId: 6192236c-b025-6ed9-ef60-003ec8f5d6ec
 
 # Update the Administration Mode Certificate | Microsoft Learn
 
-When you deploy Windows Admin Center in Administration Mode as a service, the gateway uses a single HTTPS certificate to secure communication between the gateway and connected devices. This certificate encrypts data and authenticates identities to protect the gateway. This article shows you how to update that single gateway HTTPS certificate.
+The gateway HTTPS certificate in Windows Admin Center Administration Mode secures communication between the gateway and connected devices by encrypting data and verifying identities. Update the certificate before it expires, if its private key is compromised, or when your organization changes certificate authorities.
 
-Administration Mode uses this single gateway HTTPS certificate. Virtualization Mode manages its agent and gateway certificates differently, so the steps in this article don't apply to Virtualization Mode deployments.
+This article explains how to replace the certificate by using PowerShell or the Windows Admin Center installer. The procedure applies only to Administration Mode because Virtualization Mode manages its agent and gateway certificates differently.
 
-You might want to update the certificate if:
+You might want to update the certificate in Administration Mode if:
 
 - You have a new certificate authority (CA)
 - Your existing private key was disclosed
@@ -79,7 +79,7 @@ Self-signed certificates aren't recommended for use with Windows Admin Center in
 ## Update the certificate
 
 # [PowerShell](#tab/powershell)
-1. Sign in to your machine. If you're on Server Core, from the SConfig menu, enter option **15**, then select **Enter** to open a PowerShell session. If you're on the desktop experience, remote desktop into your VM and launch PowerShell.
+1. Sign in to your machine. If you're on Server Core, from the SConfig menu, enter option **15**, then select Enter to open a PowerShell session. If you're on the desktop experience, remote desktop into your VM and launch PowerShell.
 2. Import the Windows Admin Center configuration PowerShell module by using the following command:
 
     ```powershell
@@ -116,10 +116,10 @@ Self-signed certificates aren't recommended for use with Windows Admin Center in
 2. Advance through the wizard to the **Select TLS certificate** screen.
 3. Select the **Use the pre-installed TLS certificate** option, and then select **Next**.
 
-    ![Screenshot of the Select TLS certificate screen.](../media/select-pre-installed-certificate.png)
+    ![Screenshot of the Windows Admin Center installer with Use the pre-installed TLS certificate selected.](../media/select-pre-installed-certificate.png)
 4. Enter the thumbprint of your certificate. Find the thumbprint in the `LocalMachine\My\` certificate store on your computer.
 
-    ![Screenshot of the Certificate thumbprint screen.](../media/select-thumbprint-certificate.png)
+    ![Screenshot of the Windows Admin Center installer with the empty TLS certificate thumbprint dropdown expanded.](../media/select-thumbprint-certificate.png)
 5. Complete the wizard and start Windows Admin Center.
 
 ---
